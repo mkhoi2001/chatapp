@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const groupSchema = new mongoose.Schema({
     name: {
         type:String,
-        required: [true, 'Please tell us your name!']
+        required: [true, 'Vui lòng điền tên!']
     },
     description: {
         type:String,
-        required: [true, 'Please tell us your description!']
+        required: [true, 'Vui lòng điền mô tả!']
     },
     user_id: {
         type: String,

@@ -58,7 +58,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     const newUser = await User.create(req.body);
     res.status(200).json({
         status:'success',
-        message: "Register Sucessfully",
+        message: "Đăng ký thành công",
         data:newUser
     });
 });
@@ -75,44 +75,24 @@ exports.signup = catchAsync(async (req, res, next) => {
  * SignIn post Form 
  */
 exports.signin = catchAsync(async (req, res, next) => {
-    
-    /*if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        return res.status(200).json({
-            status: 'fail',
-            message: 'Please select captcha'
-        });   
-    }*/
 
     const { email, password } = req.body;
     if (!email || !password) {
 
         return res.status(200).json({
             status: 'fail',
-            message: 'Invalid Email And Password'
+            message: 'Vui lòng nhập email và mật khẩu'
         });
     }
     const user = await User.findOne({ email }).select('+password');
     if (!user || !(await user.correctPassword(password, user.password))) {
         return res.status(200).json({
             status: 'fail',
-            message: 'Incorrect email or Password'
+            message: 'Email hoặc mật khẩu không đúng'
         });
     }
     createSendToken(user, 200, res, 'Login Successfully');
-    //var secretKey = "6Lfi6ocfAAAAAAqrAU0ChbWJcXYzTP1rWyljqrPh";
-    // req.connection.remoteAddress will provide IP address of connected user.
-    //var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-    // Hitting GET request to the URL, Google will respond with success or error scenario.
-    //request(verificationUrl, async (error, response, body) => {
-        //body = JSON.parse(body);
-        // Success will be true or false depending upon captcha validation.
-        //if (body.success !== undefined && !body.success) {
-            //return res.status(200).json({
-                //status: 'fail',
-                //message: 'Failed captcha verification'
-            //});
-        //}
-    //});
+
 });
 
 
@@ -132,7 +112,7 @@ exports.forgotPassword = catchAsync (async (req,res, next) => {
     if(!user){
         return res.status(404).json({
             status: "fail",
-            message: "There is no user with email address."
+            message: "Email không tồn tại"
         });
     }
 
@@ -142,18 +122,18 @@ exports.forgotPassword = catchAsync (async (req,res, next) => {
 
     // Send it to user's email
     const resetURL = `${req.protocol}://${req.get('host')}/resetpassword/${resetToken}`;
-    const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email`;
+    const message = `Quên mật khẩu? Gửi yêu cầu cấp lại mật khẩu tới: ${resetURL}.`;
 
     try{
         await sendEmail({
             email: user.email,
-            subject: 'Your password reset token (valid for 10 min)',
+            subject: 'Mã cấp lại mật khẩu hiệu lực trong 10 phút',
             message
         });
     
         return res.status(200).json({
             status: 'success',
-            message: 'Token sent to email!',
+            message: 'Mã cấp lại mật khẩu đã được gửi tới email',
             token: resetToken
         });
     }
@@ -164,7 +144,7 @@ exports.forgotPassword = catchAsync (async (req,res, next) => {
 
         return req.status(500).json({
             status: 'fail',
-            message: 'There was an error sending the email, Try again later!'
+            message: 'Đã xảy ra lỗi khi gửi email, Hãy thử lại sau!'
         });
     }
 });
@@ -189,7 +169,7 @@ exports.resetPassword = catchAsync(async (req,res,next) => {
     if (!user) {
         return res.status(200).json({
             status: 'fail',
-            message: 'Token is invalid or has expired'
+            message: 'Mã không hợp lệ hoặc đã hết hạn'
         });
     }
     user.password = req.body.password;
@@ -202,7 +182,7 @@ exports.resetPassword = catchAsync(async (req,res,next) => {
     const token = signToken(user._id);
     return res.status(200).json({
         status: 'success',
-        message: 'Reset Password Successfully'
+        message: 'Khôi phục mật khẩu thành công!'
     });
 });
 

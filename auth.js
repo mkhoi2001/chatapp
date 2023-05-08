@@ -26,7 +26,7 @@ app.use('/', authRouter);
 app.use((err, req, res, next) => {
     let error = { ...err }
     if (error.code === 11000) {
-        err.message = "Duplicate field value: email. Please use another value";
+        err.message = "Email đã được đăng ký. Vui lòng sử dụng email khác.";
         err.statusCode = 401;
     }
     err.statusCode = err.statusCode || 500;

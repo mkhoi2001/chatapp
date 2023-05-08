@@ -131,7 +131,7 @@ const forgotPassword = async (email) => {
         }
     }
     catch (err) {
-        toastr.error('Please Provide a Email', 'Error');
+        toastr.error('Vui lòng điền email', 'Error');
     }
 };
 

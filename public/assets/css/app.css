@@ -1879,5 +1879,8 @@ body[data-layout-mode="dark"] .signin-other-title .title {
 
 body[data-layout-mode="dark"] .signin-other-title::after {
   background-color: #2e2e2e; }
-mode="dark"] .signin-other-title::after {
+body[data-layout-mode="dark"] .signin-other-title::after {
   background-color: #2e2e2e; }
+.hidden {
+  display: none;
+}

@@ -151,13 +151,13 @@ function fileAttachedValidation() {
   var allowedExtensions = /(\.pdf|\.zip)$/i;
   var fileSize = file.size;
   if (!allowedExtensions.exec(filePath)) {
-    toastr.error(`Please select only valid Pdf or Zip file.`, "Error");
+    toastr.error(`Vui lòng chỉ chọn tệp Pdf hoặc Zip.`, "Error");
     fileInput.value = "";
   } else {
     // Image preview
     if (fileInput.files && fileInput.files[0]) {
       if (fileSize > 2097152) {
-        toastr.error(`pless select file less than 2MB`, "Error");
+        toastr.error(`Vui lòng chọn tệp nhỏ hơn 2MB`, "Error");
         fileInput.value = "";
       }
     }
@@ -173,13 +173,13 @@ function imageValidation() {
   var allowedExtensions = /(\.png|\.gif|\.jpg|\.jpeg)$/i;
   var fileSize = file.size;
   if (!allowedExtensions.exec(filePath)) {
-    toastr.error(`Please select only valid Png, gif or Jpeg file.`, "Error");
+    toastr.error(`Vui lòng chỉ chọn tệp PNG, gif hoặc Jpeg.`, "Error");
     fileInput.value = "";
   } else {
     // Image preview
     if (fileInput.files && fileInput.files[0]) {
       if (fileSize > 2097152) {
-        toastr.error(`pless select file less than 2MB`, "Error");
+        toastr.error(`Vui lòng chọn tệp nhỏ hơn 2MB`, "Error");
         fileInput.value = "";
       }
     }
@@ -195,13 +195,13 @@ function audioValidation() {
   var allowedExtensions = /(\.mp3|\.mp4)$/i;
   var fileSize = file.size;
   if (!allowedExtensions.exec(filePath)) {
-    toastr.error(`Please select only valid Mp3 or Mp4 file.`, "Error");
+    toastr.error(`Vui lòng chỉ chọn tệp Mp3 hoặc Mp4.`, "Error");
     fileInput.value = "";
   } else {
     // Image preview
     if (fileInput.files && fileInput.files[0]) {
       if (fileSize > 2097152) {
-        toastr.error(`pless select file less than 2MB`, "Error");
+        toastr.error(`Vui lòng chọn tệp nhỏ hơn 2MB`, "Error");
         fileInput.value = "";
       }
     }
@@ -275,21 +275,21 @@ function checkInput() {
   var email = contactEmail.value;
   var message = contactMessage.value;
   if (email === "") {
-    setErrorFor(contactEmail, "Please provide your email");
+    setErrorFor(contactEmail, "Vui lòng điền email");
     return false;
   } else {
     setSuccessFor(contactEmail);
   }
 
   if (name === "") {
-    setErrorFor(contactName, "Please provide your name");
+    setErrorFor(contactName, "Vui lòng điền tên");
     return false;
   } else {
     setSuccessFor(contactName);
   }
 
   if (message === "") {
-    setErrorFor(contactMessage, "Please provide your message");
+    setErrorFor(contactMessage, "Vui lòng điền nội dung");
     return false;
   } else {
     setSuccessFor(contactMessage);

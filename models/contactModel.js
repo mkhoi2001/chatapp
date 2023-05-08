@@ -3,12 +3,12 @@ const validator = require('validator');
 const contactSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Please provide your name']
+        required: [true, 'Vui lòng điền tên']
     },
     email: {
         type: String,
-        required: [true, 'Please provide your email'],
-        validate: [validator.isEmail, 'Please provide a valid email']
+        required: [true, 'Vui lòng điền email'],
+        validate: [validator.isEmail, 'Vui lòng điền email chính xác']
     },
     message: {
         type: String

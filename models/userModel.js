@@ -6,34 +6,34 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
-        required: [true, 'Please tell us your name!']
+        required: [true, 'Vui lòng điền tên!']
     },
     email:{
         type:String,
-        required:[true,'Please provide your email'],
+        required:[true,'Vui lòng điền email'],
         unique: true,
         lowercase: true,
-        validate:[validator.isEmail, 'Please provide a valid email']
+        validate:[validator.isEmail, 'Vui lòng điền email chính xác']
     },
     password:{
         type:String,
-        required:[true,'Please provide a password'],
+        required:[true,'Vui lòng nhập mật khẩu'],
         minlength:6
     },
     passwordConfirm:{
         type: String,
-        required: [true, 'please Enter confirm password'],
+        required: [true, 'Vui lòng xác nhận lại mật khẩu'],
         minlength: 6,
         validate: {
             validator: function (el) {
                 return el === this.password;
             },
-            message: 'passwords are not the same!'
+            message: 'Mật khẩu và xác thực không giống nhau'
         }
     },
     location:{
         type:String,
-        required: [true, 'Please provide a location!']
+        required: [true, 'Vui lòng cung cấp địa chỉ!']
     },
     status:{
         type:String, 
