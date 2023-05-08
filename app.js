@@ -19,9 +19,6 @@ app.use(express.static(__dirname + "/public"));
 // Models
 const Contact = require('./models/contactModel');
 const Message = require("./models/messageModel");
-const Groups = require("./models/groupModel");
-const GroupMember = require("./models/groupMemberModel");
-const GroupMessage = require("./models/groupMessageModel");
 const CallLog = require('./models/callLogModel');
 
 const users = {};
@@ -61,22 +58,6 @@ const {
     notificationUpdate,
     notificationMutedUpdate,
     groupById,
-    groupContactsList,
-    groupData,
-    groupGet,
-    groupMessageSearchData,
-    groupMessageGet,
-    deleteGroupUser,
-    unreadGroupUser,
-    updateUnreadGroupUser,
-    updateUnreadGroupMessage,
-    groupMessageDelete,
-    allGroupMessageDelete,
-    groupNameUpdate,
-    groupDelete,
-    groupMemberDelete,
-    groupMsgDelete,
-    groupExitMember,
     callsGet
   } = require('./utils/query');
 
@@ -165,7 +146,7 @@ io.on("connection", (socket) => {
                 if (userData.email != userEmail) {
                     contactEmail(email, created_by).then((contactData) => {
                         if (contactData == null) {
-                            io.to(socket.id).emit("Success", { 'msg': 'Contact successfully' });
+                            io.to(socket.id).emit("Success", { 'msg': 'Thêm thành công' });
                             const user_id = userData._id;
                             const contact = new Contact({ name, email, user_id, created_by });
                             contact.save().then(() => {
@@ -177,16 +158,16 @@ io.on("connection", (socket) => {
                             });
                         }
                         else {
-                            io.to(socket.id).emit("contactsError", { 'msg': 'email allredy exists' });
+                            io.to(socket.id).emit("contactsError", { 'msg': 'Email đã tồn tại' });
                         }
                     });
                 }
                 else{
-                    io.to(socket.id).emit("contactsError", { 'msg': 'Current email not exists' });
+                    io.to(socket.id).emit("contactsError", { 'msg': 'Email không tồn tại' });
                 }
             }
             else{
-                io.to(socket.id).emit("contactsError", { 'msg': 'Email field is required!' });
+                io.to(socket.id).emit("contactsError", { 'msg': 'Vui lòng điền email' });
             }
         });
     });
@@ -518,319 +499,6 @@ io.on("connection", (socket) => {
         notificationMutedUpdate(user_id, is_muted).then((message) => {});
     });
 
-
-    /**
-     * Group Section
-     */
-    //------------------------ Group Create -----------------//
-    socket.on("groupCreate",async function({ name, description, user_id, groupMember }) {
-        try{
-            var groups = await Groups.create({ name, description, user_id})
-            let group_id = groups._id;
-            io.to(socket.id).emit("group-append", ({group_id, name, description, user_id, groupMember}));
-            groupMember.forEach(con => {
-                for (const key in users) {
-                  if (con == users[key]) {
-                      io.to(key).emit("group-append", ({group_id, name, description, user_id, groupMember}));
-                  }
-                }
-              });
-            groupMember.forEach(async user_id => {
-                await GroupMember.create({ user_id, group_id})
-            });
-            var is_admin = 1;
-            await GroupMember.create({ user_id, group_id, is_admin})
-            io.to(socket.id).emit("Success", { 'msg': 'Group create successfully' });
-        }
-        catch(err){
-            io.to(socket.id).emit("errorHandling", err );
-        }
-    });
-
-    //------------------------ Group Member Create -------------------//
-    socket.on("groupMemberCreate",async function({ groupMember, groupId, userId }) {
-        groupMember.forEach(async user_id => {
-            var group_id = groupId;
-            await GroupMember.create({ user_id, group_id})
-            groupById(groupId).then((group) => {
-
-                // Group append
-                groupData(group_id).then((groups) => 
-                {
-                    for (const key in users) 
-                    {
-                        if (user_id == users[key]) 
-                        {
-                            io.to(key).emit("addGroup", ({ group:groups }));
-                        }
-                    }
-                });
-
-                // Group Member Append
-                group.forEach(gu => {
-                    for (const key in users) {
-                        if (gu.user_id == users[key]) {
-                            groupContactsList(groupId,userId).then((groups) => {
-                                io.to(key).emit('groupDetail', {
-                                    groupMember: groups , groupId:groupId
-                                });
-                            });
-                        }
-                    }
-                });
-            });
-        });
-    });
-
-    //------------------------- Onload Group List Get -----------------------//
-    socket.on('groupsData', (userId) => {
-        groupGet(userId).then((contacts) => {
-            io.to(socket.id).emit('groupLists', {
-                groups: contacts
-            });
-        });
-    });
-
-    //------------------------ Group Message send -----------------------//
-    socket.on("group_msg", function ({ flag,message, sender_id, group_id, has_files, has_images, has_audio, is_replay, replay_id, location, profile,userName,userId}) {
-        const gmessage = new GroupMessage({ message, sender_id, group_id, has_files, has_images, has_audio, is_replay, replay_id,location });
-        gmessage.save().then(() => {
-            id = gmessage._id;
-            createdAt = gmessage.createdAt;
-            has_dropDown = gmessage.has_dropDown;
-            groupById(group_id,userId).then((group) => {
-                group.forEach(gu => {
-                    for (const key in users) {
-                        if (gu.user_id == users[key]) {                        
-                            io.to(key).emit("group_res_msg_get", ({ flag, id, message, sender_id, group_id, has_dropDown, has_files, has_images, has_audio, createdAt, is_replay, replay_id, location, profile, userName }))
-                        }
-                  }
-                });
-              });
-        });
-
-        // unread msg count set group member
-        unreadGroupUser(group_id).then((receiverData) => {
-            var info = [];
-            for (i = 0; i < receiverData.length; i++) {
-              if (receiverData[i]['contact_id'] != sender_id) {
-                info[i] = receiverData[i]
-              }
-            }
-            info.forEach(receiver => {
-              var unread = receiver.unread + 1;
-              updateUnreadGroupUser(receiver.group_id, receiver.user_id, unread).then((receiverData) => {});
-            });
-          });
-    });
-
-    // -------------------- Group Message Update -----------------//
-    socket.on("update_group_msg", async function({ flag,message, sender_id, group_id, userId, userEmail, userName, userLocation, profile, is_replay,replay_id,messageId }) {      
-        messageGroupUpdate(messageId, message, flag).then((message) => { });
-        groupById(group_id,userId).then((group) => {
-            group.forEach(gu => {
-                for (const key in users) {
-                    if (gu.user_id == users[key]) {                        
-                        io.to(key).emit("message_update", ({ messageId, message, userId, flag }))
-                    }
-              }
-            });
-          });
-    });
-
-    //------------------- Group Contacts Message send --------------------//
-    socket.on("group_contacts_message_create", async function ({ sender_id, group_id, contactsIds, profile }) { 
-        contactsIds.forEach(async contacts_id => {
-            var contactsMsg = await GroupMessage.create({ sender_id,group_id,contacts_id, profile});
-            id = contactsMsg._id;
-            message = contactsMsg.message;
-            has_dropDown = contactsMsg.has_dropDown;
-            has_files= contactsMsg.has_files;
-            has_images = contactsMsg.has_images;
-            has_audio = contactsMsg.has_audio;
-            contacts_id = contactsMsg.contacts_id;
-            createdAt= contactsMsg.createdAt;
-            is_replay = null;
-            replay_id = null;
-            groupById(group_id).then((group) => {
-                group.forEach(gu => {
-                    for (const key in users) {
-                    if (gu.user_id == users[key]) {
-                        currentContactsWithUserId(contacts_id,sender_id).then((contact) => {
-                            contact_name = contact.name
-                            contact_profile = contact.user_id.profile
-                            contact_email = contact.user_id.email
-                            io.to(key).emit("group_res_msg_get", ({ id, message, sender_id, group_id, has_dropDown, has_files, has_images, has_audio, createdAt, is_replay, replay_id, contacts_id, contact_name, contact_profile, contact_email, profile }))
-                        })
-                    }
-                  }
-                });
-              });
-        });
-    })
-
-    //--------------------- Onclick Group Message Get ---------------//
-    socket.on('groupClick', async ({ groupId, userId, startm }) => {
-        // Group Click event
-        groupData(groupId).then((group) => 
-        {   
-            io.to(socket.id).emit("groupClickEvent", ({group: group}));
-        });
-
-        // Group Info get
-        groupById(groupId).then((group) => {
-            group.forEach(gu => {
-              for (const key in users) {
-                if (gu.user_id == users[key]) {
-                    groupContactsList(groupId,userId).then((groups) => {
-                        io.to(socket.id).emit("groupDetail", ({groupMember: groups , groupId:groupId}));
-                    });
-                }
-              }
-            });
-        });
-        
-        // Unread Msg Update
-        var unread = 0;
-        updateUnreadGroupMessage(groupId, userId, unread).then((group_message) => { });
-
-        // Group Message Get
-        let cnt= await GroupMessage.find({group_id:groupId}).count();
-        if(startm==0)
-        {
-            groupMessageGet(groupId,userId,startm,cnt).then((message) => {
-                io.to(socket.id).emit('groupMessage', {
-                    msgno:cnt,
-                    contactMsgs: message
-                });
-            });
-        }else{
-            groupMessageGet(groupId, startm).then((message) => {
-                io.to(socket.id).emit('groupchat-pg', {
-                    contactMsgs: message
-                });
-            });
-          }
-    })
-
-    //-------------------- Unread Group Msg Update -----------------------//
-    socket.on('unreadGroupMsgUpdate', async ({ groupId, userId, unread }) => {
-        updateUnreadGroupMessage(groupId, userId, unread).then((message) => {});
-    })
-
-    // Group User Delete
-    socket.on('deleteGroupUser', ({ id, groupId }) => {
-        deleteGroupUser(id, groupId).then((groupUser) => { });
-        groupById(groupId).then((group) => {
-            group.forEach(gu => {
-              for (const key in users) {
-                if (gu.user_id == users[key]) {
-                  io.to(key).emit("deleteGroupUser", ({id, groupId}));
-                }
-              }
-            });
-        });
-    });
-
-    //-------------------- Group Msg Search -------------------------------//
-    socket.on('groupMessageSearch', ({ filter, groupId }) => {
-        groupMessageSearchData(filter, groupId).then((message) => {
-            io.to(socket.id).emit('groupMessage', {
-                contactMsgs: message
-            });
-        });
-    });
-
-    // Group All Message Delete
-    socket.on('all_Group_Message_delete', ({ conversation, groupId, userId }) => {
-        allGroupMessageDelete(groupId).then((message) => { });
-        groupById(groupId).then((group) => {
-            group.forEach(gu => {
-              for (const key in users) {
-                if (gu.user_id == users[key]) {
-                  io.to(key).emit("all_Group_Message_delete", ({conversation, group_Id:groupId, userId}));
-                }
-              }
-            });
-        });
-    });
-
-    // Group Exit member
-    socket.on('group_exit_member', ({ id, groupId }) => {
-        var group_id = groupId; 
-        groupExitMember(id, group_id).then((message) => { });
-        groupById(groupId).then((group) => {
-            group.forEach(gu => {
-            for (const key in users) {
-                if (gu.user_id == users[key]) {
-                io.to(key).emit("group_exit_member", ({id, groupId}));
-                }
-            }
-            });
-        });
-    });
-
-    // Group name update
-    socket.on("updateGroupName", function ({ groupId, name }) {
-        groupNameUpdate(groupId, name).then((userInfo) => { 
-            groupById(groupId).then((group) => {
-                group.forEach(gu => {
-                  for (const key in users) {
-                    if (gu.user_id == users[key]) {
-                      io.to(key).emit("updateGroupName", ({ groupId, name }));
-                    }
-                  }
-                });
-            });
-        });
-    });
-
-    // Group delete
-    socket.on('group_delete', ({ id }) => {
-        groupDelete(id).then((message) => { });
-        groupMemberDelete(id).then((message) => { });
-        groupMsgDelete(id).then((message) => { });
-        groupById(id).then((group) => {
-            group.forEach(gu => {
-                for (const key in users) {
-                    if (gu.user_id == users[key]) {
-                    io.to(key).emit("group_delete", ({ id }));
-                    }
-                }
-            });
-        });
-    });
-
-    // Group Msg Reply
-    socket.on('replyId_Group', async ({ groupId, replayId, userId }) => {
-        groupById(groupId).then((group) => {
-            group.forEach(gu => {
-                for (const key in users) {
-                    if (gu.user_id == users[key]) {
-                        contactsUserIdGet(replayId,userId).then((contact) => {
-                            io.to(key).emit("replyId_Group", ({ contact}));
-                        });
-                    }
-                }
-            });
-          });
-    });
-    
-
-    //--------------------- Group Message DroupDown -------------------------------//
-    // Group Message Delete
-    socket.on('group_message_delete', ({ message_id, groupId, flag }) => {
-        groupMessageDelete(message_id, flag).then((message) => { });
-        groupById(groupId).then((group) => {
-            group.forEach(gu => {
-                for (const key in users) {
-                    if (gu.user_id == users[key]) {
-                    io.to(key).emit("group_message_delete", ({ message_id, groupId }));
-                    }
-                }
-            });
-        });
-    });
     
     //-------------------- Typing set ---------------------------//
     // Single Message Typing Set

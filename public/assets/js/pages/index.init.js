@@ -370,9 +370,8 @@ File: Index init js
   //                             <i class="bx bx-dots-vertical-rounded align-middle"></i>\
   //                         </a>\
   //                         <div class="dropdown-menu dropdown-menu-end">\
-  //                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Edit <i class="bx bx-pencil ms-2 text-muted"></i></a>\
-  //                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Block <i class="bx bx-block ms-2 text-muted"></i></a>\
-  //                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Remove <i class="bx bx-trash ms-2 text-muted"></i></a>\
+  //                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Sửa <i class="bx bx-pencil ms-2 text-muted"></i></a>\
+  //                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>\
   //                         </div>\
   //                     </div>\
   //                 </div>\
@@ -569,12 +568,11 @@ File: Index init js
   //                                   <i class="ri-more-2-fill"></i>\
   //                               </a>\
   //                               <div class="dropdown-menu">\
-  //                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Reply <i class="bx bx-share ms-2 text-muted"></i></a>\
-  //                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="modal" data-bs-target=".forwardModal">Forward <i class="bx bx-share-alt ms-2 text-muted"></i></a>\
+  //                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Trả lời <i class="bx bx-share ms-2 text-muted"></i></a>\
+  //                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="modal" data-bs-target=".forwardModal">Chuyển tiếp <i class="bx bx-share-alt ms-2 text-muted"></i></a>\
   //                                   <a class="dropdown-item d-flex align-items-center justify-content-between copy-message" href="#" id="copy-message-'+ messageIds+'">Copy <i class="bx bx-copy text-muted ms-2"></i></a>\
-  //                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bx bx-bookmarks text-muted ms-2"></i></a>\
   //                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Mark as Unread <i class="bx bx-message-error text-muted ms-2"></i></a>\
-  //                                   <a class="dropdown-item d-flex align-items-center justify-content-between delete-item" id="delete-item-' + messageIds + '" href="#">Delete <i class="bx bx-trash text-muted ms-2"></i></a>\
+  //                                   <a class="dropdown-item d-flex align-items-center justify-content-between delete-item" id="delete-item-' + messageIds + '" href="#">Xóa <i class="bx bx-trash text-muted ms-2"></i></a>\
   //                           </div>\
   //                       </div>\
   //                   </div>\
@@ -821,11 +819,10 @@ function deleteChannelMessage() {
 //                             <i class="bx bx-dots-horizontal-rounded"></i>\
 //                         </a>\
 //                         <div class="dropdown-menu">\
-//                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Download <i class="bx bx-download ms-2 text-muted"></i></a>\
-//                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Reply <i class="bx bx-share ms-2 text-muted"></i></a>\
-//                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="modal" data-bs-target=".forwardModal">Forward <i class="bx bx-share-alt ms-2 text-muted"></i></a>\
-//                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bx bx-bookmarks text-muted ms-2"></i></a>\
-//                             <a class="dropdown-item d-flex align-items-center justify-content-between delete-image" href="#">Delete <i class="bx bx-trash ms-2 text-muted"></i></a>\
+//                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Tải về <i class="bx bx-download ms-2 text-muted"></i></a>\
+//                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Trả lời <i class="bx bx-share ms-2 text-muted"></i></a>\
+//                             <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="modal" data-bs-target=".forwardModal">Chuyển tiếp <i class="bx bx-share-alt ms-2 text-muted"></i></a>\
+//                             <a class="dropdown-item d-flex align-items-center justify-content-between delete-image" href="#">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>\
 //                         </div>\
 //                     </li>\
 //                 </ul>\
@@ -869,12 +866,11 @@ function deleteChannelMessage() {
 //                     <i class="ri-more-2-fill"></i>\
 //                 </a>\
 //                 <div class="dropdown-menu">\
-//                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Reply <i class="bx bx-share ms-2 text-muted"></i></a>\
-//                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="modal" data-bs-target=".forwardModal">Forward <i class="bx bx-share-alt ms-2 text-muted"></i></a>\
+//                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Trả lời <i class="bx bx-share ms-2 text-muted"></i></a>\
+//                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="modal" data-bs-target=".forwardModal">Chuyển tiếp <i class="bx bx-share-alt ms-2 text-muted"></i></a>\
 //                     <a class="dropdown-item d-flex align-items-center justify-content-between copy-message" href="#" id="copy-message-'+ messageIds+'">Copy <i class="bx bx-copy text-muted ms-2"></i></a>\
-//                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bx bx-bookmarks text-muted ms-2"></i></a>\
 //                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Mark as Unread <i class="bx bx-message-error text-muted ms-2"></i></a>\
-//                     <a class="dropdown-item d-flex align-items-center justify-content-between delete-item" href="#">Delete <i class="bx bx-trash text-muted ms-2"></i></a>\
+//                     <a class="dropdown-item d-flex align-items-center justify-content-between delete-item" href="#">Xóa <i class="bx bx-trash text-muted ms-2"></i></a>\
 //                 </div>\
 //             </div>'         
 //     }

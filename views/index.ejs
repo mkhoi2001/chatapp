@@ -33,31 +33,30 @@
 
             <!-- Start left sidebar-menu -->
             <div class="side-menu flex-lg-column">
-
                 <!-- Start side-menu nav -->
                 <div class="flex-lg-column my-0 sidemenu-navigation">
                     <ul class="nav nav-pills side-menu-nav" role="tablist">
-                        <li class="nav-item d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Profile">
+                        <li class="nav-item d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Trang cá nhân">
                             <a class="nav-link" id="pills-user-tab" data-bs-toggle="pill" href="#pills-user" role="tab" onclick="CloseChat()">
                                 <i class='bx bx-user-circle'></i>
                             </a>
                         </li>
-                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Chats">
+                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Tin nhắn">
                             <a class="nav-link active" id="pills-chat-tab" data-bs-toggle="pill" href="#pills-chat" role="tab" onclick="CloseChat()">
                                 <i class='bx bx-conversation'></i>
                             </a>
                         </li>
-                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Contacts">
+                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Danh bạ">
                             <a class="nav-link" id="pills-contacts-tab" data-bs-toggle="pill" href="#pills-contacts" role="tab" onclick="CloseChat()">
                                 <i class='bx bxs-user-detail'></i>
                             </a>
                         </li>
-                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Calls" onclick="callClickEvent(this)"> 
+                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Cuộc gọi" onclick="callClickEvent(this)"> 
                             <a class="nav-link" id="pills-calls-tab" data-bs-toggle="pill" href="#pills-calls" role="tab" onclick="CloseChat()">
                                 <i class='bx bx-phone-call'></i>
                             </a>
                         </li>
-                        <li class="nav-item d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-container=".sidemenu-navigation" data-bs-trigger="hover" title="Settings">
+                        <li class="nav-item d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-container=".sidemenu-navigation" data-bs-trigger="hover" title="Cài đặt">
                             <a class="nav-link" id="pills-setting-tab" data-bs-toggle="pill" href="#pills-setting" role="tab" onclick="CloseChat()">
                                 <i class='bx bx-cog'></i>
                             </a>
@@ -69,14 +68,14 @@
                         </li>
                         <li class="nav-item dropdown profile-user-dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="assets/images/users/avatar-1.jpg" alt="" class="profile-user rounded-circle user-profile-image">
+                                <img src="assets/images/users/user-dummy-img.jpg" alt="" class="profile-user rounded-circle user-profile-image">
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" id="pills-user-tab" data-bs-toggle="pill" href="#pills-user" role="tab">Profile <i class="bx bx-user-circle text-muted ms-1"></i></a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" id="pills-setting-tab" data-bs-toggle="pill" href="#pills-setting" role="tab">Setting <i class="bx bx-cog text-muted ms-1"></i></a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" href="auth-changepassword.html">Change Password <i class="bx bx-lock-open text-muted ms-1"></i></a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between" id="pills-user-tab" data-bs-toggle="pill" href="#pills-user" role="tab">Hồ sơ <i class="bx bx-user-circle text-muted ms-1"></i></a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between" id="pills-setting-tab" data-bs-toggle="pill" href="#pills-setting" role="tab">Cài đặt <i class="bx bx-cog text-muted ms-1"></i></a>
+                            
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between logout_btn" href="javascript:void(0);">Log out <i class="bx bx-log-out-circle text-muted ms-1"></i></a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-between logout_btn" href="javascript:void(0);">Đăng xuất <i class="bx bx-log-out-circle text-muted ms-1"></i></a>
                             </div>
                         </li>
                     </ul>
@@ -96,46 +95,22 @@
                             <div class="user-profile-img">
                                 <img src="assets/images/small/img-4.jpg" class="profile-img profile-foreground-img" style="height: 160px;" alt="">
                                 <div class="overlay-content">
-                                    <div>
-                                        <div class="user-chat-nav p-2 ps-3">
-                    
-                                            <div class="d-flex w-100 align-items-center">
-                                                <div class="flex-grow-1">
-                                                    <h5 class="text-white mb-0">My Profile</h5>
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <div class="dropdown">
-                                                        <button class="btn nav-btn text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class='bx bx-dots-vertical-rounded'></i>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Info <i class="bx bx-info-circle ms-2 text-muted"></i></a>
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Setting <i class="bx bx-cog text-muted ms-2"></i></a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Help <i class="bx bx-help-circle ms-2 text-muted"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
                             <div class="text-center p-3 p-lg-4 border-bottom pt-2 pt-lg-2 mt-n5 position-relative">
                                 <div class="mb-lg-3 mb-2">
-                                    <img src="assets/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="">
+                                    <img src="assets/images/users/user-dummy-img.jpg" class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="">
                                 </div>
 
-                                <h5 class="font-size-16 mb-1 text-truncate user_name">Adam Zampa</h5>
-                                <p class="text-muted font-size-14 text-truncate mb-0">Front end Developer</p>
+                                <h5 class="font-size-16 mb-1 text-truncate user_name"></h5>
                             </div>
                             <!-- End profile user -->
 
                             <!-- Start user-profile-desc -->
                             <div class="p-4 profile-desc" data-simplebar>
                                 <div class="text-muted">
-                                    <p class="mb-4 user_status">If several languages coalesce, the grammar of the resulting language is more simple.</p>
+                                    <p class="mb-4 user_status">Chưa cập nhật</p>
                                 </div>
 
                                 <div>
@@ -144,7 +119,7 @@
                                             <i class="bx bx-user align-middle text-muted"></i>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <p class="mb-0 user_name">Adam Zampa</p>
+                                            <p class="mb-0 user_name"></p>
                                         </div>
                                     </div>
 
@@ -153,7 +128,7 @@
                                             <i class="bx bx-message-rounded-dots align-middle text-muted"></i>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <p class="mb-0 user_email">adc@123.com</p>
+                                            <p class="mb-0 user_email"></p>
                                         </div>
                                     </div>
             
@@ -162,7 +137,7 @@
                                             <i class="bx bx-location-plus align-middle text-muted"></i>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <p class="mb-0 user_location">California, USA</p>
+                                            <p class="mb-0 user_location"></p>
                                         </div>
                                     </div>
                                     
@@ -185,7 +160,7 @@
                                         <h4 class="mb-4">Chats</h4>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Add Contact">
+                                        <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Thêm danh bạ">
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addContact-exampleModal">
                                                 <i class="bx bx-plus"></i>
@@ -195,7 +170,7 @@
                                 </div>
                                 <form>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control bg-light border-0 pe-0" id="serachChatUser" onkeyup="searchUser()" placeholder="Search here.." 
+                                        <input type="text" class="form-control bg-light border-0 pe-0" id="serachChatUser" onkeyup="searchUser()" placeholder="Tìm kiếm .." 
                                         aria-label="Example text with button addon" aria-describedby="searchbtn-addon" autocomplete="off">
                                         <button class="btn btn-light" type="button" id="searchbtn-addon"><i class='bx bx-search align-middle'></i></button>
                                     </div>
@@ -203,22 +178,13 @@
                             </div> <!-- .p-4 -->
 
                             <div class="chat-room-list" data-simplebar>
-                                <!-- Start chat-message-list -->
-                                <h5 class="mb-3 px-4 mt-4 font-size-11 text-muted text-uppercase">Favourites</h5>
-
-                                <div class="chat-message-list">
-            
-                                    <ul class="list-unstyled chat-list chat-user-list" id="favourite-users">
-                                        <li id="favourite-append"></li>
-                                    </ul>
-                                </div>
 
                                 <div class="d-flex align-items-center px-4 mt-5 mb-2">
                                     <div class="flex-grow-1">
-                                        <h4 class="mb-0 font-size-11 text-muted text-uppercase">Direct Messages</h4>
+                                        <h4 class="mb-0 font-size-11 text-muted text-uppercase">Tin nhắn</h4>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="New Message">
+                                        <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Gửi tin nhắn">
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target=".contactModal">
                                                 <i class="bx bx-plus"></i>
@@ -239,94 +205,6 @@
                         </div>
                         <!-- Start chats content -->
 
-                        <!-- Start add group Modal -->
-                        <div class="modal fade" id="addgroup-exampleModal" tabindex="-1" role="dialog" aria-labelledby="addgroup-exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <div class="modal-content modal-header-colored shadow-lg border-0">
-                                    <form class="group_form">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-white font-size-16" id="addgroup-exampleModalLabel">Create New Group</h5>
-                                            <button type="button" class="btn-close btn-close-white model-hide" id="hide_modal" data-bs-dismiss="modal" aria-label="Close">
-                                            </button>
-                                        </div>
-                                        <div class="modal-body p-4">
-                                            <div class="error_message"></div>
-                                            <div class="mb-4">
-                                                <label for="addgroupname-input" class="form-label">Group Name</label>
-                                                <input type="text" class="form-control" id="group_name" placeholder="Enter Group Name">
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="mb-4">
-                                                <label class="form-label">Group Members</label>
-                                                <div class="mb-3">
-                                                    <button class="btn btn-light btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#groupmembercollapse" aria-expanded="false" aria-controls="groupmembercollapse">
-                                                        Select Members
-                                                    </button>
-                                                </div>
-                                                <div class="collapse" id="groupmembercollapse">
-                                                    <div class="card border">
-                                                        <div class="card-header">
-                                                            <h5 class="font-size-15 mb-0">Contacts</h5>
-                                                        </div>
-                                                        <div class="card-body p-2">
-                                                            <div data-simplebar style="max-height: 150px;">
-                                                            <div class="contacts_member"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="addgroupdescription-input" class="form-label">Description</label>
-                                                <textarea class="form-control" id="group_description" rows="3" placeholder="Enter Description"></textarea>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Create Groups</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End add group Modal -->
-
-                        <!-- Start Group Member Add Modal -->
-                        <div class="modal fade" id="addgroupMember-exampleModal" tabindex="-1" role="dialog" aria-labelledby="addgroup-exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <div class="modal-content modal-header-colored shadow-lg border-0">
-                                    <form class="group_member_form">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-white font-size-16" id="addgroup-exampleModalLabel">Add New Member</h5>
-                                            <button type="button" class="btn-close btn-close-white model-hide" id="member_model" data-bs-dismiss="modal" aria-label="Close">
-                                            </button>
-                                        </div>
-                                        <div class="modal-body p-4">
-                                            <div class="error_message"></div>
-                                            <div class="mb-4">
-                                                <div class="card border">
-                                                    <div class="card-header">
-                                                        <h5 class="font-size-15 mb-0">Member</h5>
-                                                    </div>
-                                                    <div class="card-body p-2">
-                                                        <div data-simplebar style="max-height: 150px;">
-                                                        <ul class="groups_member list-unstyled contact-list"></ul>
-                                                        </div>
-                                                    </div>                                
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Add Member</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Group Member Add Modal -->
-
                     </div>
                     <!-- End chats tab-pane -->
 
@@ -337,10 +215,10 @@
                             <div class="px-4 pt-4">
                                 <div class="d-flex align-items-start">
                                     <div class="flex-grow-1">
-                                        <h4 class="mb-4">Contacts</h4>
+                                        <h4 class="mb-4">Thêm danh bạ</h4>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Add Contact">
+                                        <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Thêm danh bạ">
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addContact-exampleModal">
                                                 <i class="bx bx-plus"></i>
@@ -351,7 +229,7 @@
 
                                 <form>
                                     <div class="input-group mb-4">
-                                        <input type="text" class="form-control bg-light border-0 pe-0" id="searchContact" onkeyup="searchContacts()" placeholder="Search Contacts.." aria-label="Search Contacts..." 
+                                        <input type="text" class="form-control bg-light border-0 pe-0" id="searchContact" onkeyup="searchContacts()" placeholder="Tìm kiếm.." aria-label="Search Contacts..." 
                                         aria-describedby="button-searchcontactsaddon" autocomplete="off">
                                         <button class="btn btn-light" type="button" id="button-searchcontactsaddon"><i class='bx bx-search align-middle'></i></button>
                                     </div>
@@ -375,7 +253,7 @@
                             <div class="px-4 pt-4">
                                 <div class="d-flex align-items-start">
                                     <div class="flex-grow-1">
-                                        <h4 class="mb-3">Calls</h4>
+                                        <h4 class="mb-3">Cuộc gọi</h4>
                                     </div>
                                 </div>
                             </div>
@@ -405,10 +283,10 @@
                     
                                             <div class="d-flex w-100 align-items-center">
                                                 <div class="flex-grow-1">
-                                                    <h5 class="text-white mb-0">Settings</h5>
+                                                    <h5 class="text-white mb-0">Cài đặt</h5>
                                                 </div>
                                                 <div class="flex-shrink-0">
-                                                    <div class="avatar-xs p-0 rounded-circle profile-photo-edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Change Background">
+                                                    <div class="avatar-xs p-0 rounded-circle profile-photo-edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Cập nhật ảnh bìa">
                                                         <input id="profile-foreground-img-file-input" type="file" class="profile-foreground-img-file-input" >
                                                         <label for="profile-foreground-img-file-input" class="profile-photo-edit avatar-xs">
                                                             <span class="avatar-title rounded-circle bg-light text-body">
@@ -425,7 +303,7 @@
 
                             <div class="text-center p-3 p-lg-4 border-bottom pt-2 pt-lg-2 mt-n5 position-relative">
                                 <div class="mb-3 profile-user">
-                                    <img src="assets/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="user-profile-image">
+                                    <img src="assets/images/users/user-dummy-img.jpg" class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="user-profile-image">
                                     <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
                                         <input id="profile-img-file-input" type="file" class="profile-img-file-input" >
                                         <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
@@ -439,12 +317,12 @@
                                 <h5 class="font-size-16 mb-1 text-truncate"></h5>
                                 <div class="dropdown d-inline-block">
                                     <a class="text-muted dropdown-toggle d-block" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bxs-circle text-success font-size-10 align-middle"></i> Active <i class="mdi mdi-chevron-down"></i>
+                                        <i class="bx bxs-circle text-success font-size-10 align-middle"></i> Online <i class="mdi mdi-chevron-down"></i>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#"><i class="bx bxs-circle text-success font-size-10 me-1 align-middle"></i> Active</a>
-                                        <a class="dropdown-item" href="#"><i class="bx bxs-circle text-warning font-size-10 me-1 align-middle"></i> Away</a>
-                                        <a class="dropdown-item" href="#"><i class="bx bxs-circle text-danger font-size-10 me-1 align-middle"></i> Do not disturb</a>
+                                        <a class="dropdown-item" href="#"><i class="bx bxs-circle text-success font-size-10 me-1 align-middle"></i> Online</a>
+                                        <a class="dropdown-item" href="#"><i class="bx bxs-circle text-warning font-size-10 me-1 align-middle"></i> Đang bận</a>
+                                        <a class="dropdown-item" href="#"><i class="bx bxs-circle text-danger font-size-10 me-1 align-middle"></i> Không làm phiền</a>
                                     </div>
                                 </div>        
                             </div>
@@ -456,7 +334,7 @@
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="headerpersonalinfo">
                                             <button class="accordion-button font-size-14 fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#personalinfo" aria-expanded="true" aria-controls="personalinfo">
-                                                <i class="bx bxs-user text-muted me-3"></i> Personal Info
+                                                <i class="bx bxs-user text-muted me-3"></i> Thông tin cá nhân
                                             </button>
                                         </div>
                                         <div id="personalinfo" class="accordion-collapse collapse show" aria-labelledby="headerpersonalinfo" data-bs-parent="#settingprofile">
@@ -465,42 +343,42 @@
                                                     <button type="button" class="btn btn-soft-primary btn-sm" id="user_name_edit" onclick="edit_userName(this)"><i class="bx bxs-pencil align-middle"></i></button>
                                                 </div>
                                                 <div>
-                                                    <p class="text-muted mb-1">Name</p>
-                                                    <h5 class="font-size-14 user_name" id="user_name">Adam Zampa</h5>
+                                                    <p class="text-muted mb-1">Tên</p>
+                                                    <h5 class="font-size-14 user_name" id="user_name"></h5>
                                                     <div id="edit-user-name" class="visually-hidden d-flex justify-content-between">
                                                         <input type="text" name="name" id="userName" value=""
                                                           class="form-control bg-soft-light border-light" maxlength="20"/>
                                                         <div class="float-right">
                                                           <button type="submit" id="receiverSave" onclick="userNameChange(this)"
                                                             class="btn btn-primary btn-block waves-effect waves-light" style="display: block;">
-                                                            Save</button>
+                                                            Lưu</button>
                                                         </div>
                                                       </div>
                                                 </div>
 
                                                 <div class="mt-4">
                                                     <p class="text-muted mb-1">Email</p>
-                                                    <h5 class="font-size-14 user_email">adc@123.com</h5>
+                                                    <h5 class="font-size-14 user_email"></h5>
                                                 </div>
 
                                                 <div class="mt-4">
-                                                    <p class="text-muted mb-1">Location</p>
-                                                    <h5 class="font-size-14 mb-0 user_location">California, USA</h5>
+                                                    <p class="text-muted mb-1">Quốc gia</p>
+                                                    <h5 class="font-size-14 mb-0 user_location"></h5>
                                                 </div>
 
                                                 <div class="float-end">
                                                     <button type="button" class="btn btn-soft-primary btn-sm" id="user_status_edit" onclick="edit_userStatus(this)"><i class="bx bxs-pencil align-middle"></i></button>
                                                 </div>
                                                 <div class="mt-4">
-                                                    <p class="text-muted mb-1">Status</p>
-                                                    <h5 class="font-size-14 mb-0 user_status" id="user_status">Hey, there i am using doot.</h5>
+                                                    <p class="text-muted mb-1">Trạng thái</p>
+                                                    <h5 class="font-size-14 mb-0 user_status" id="user_status">Chưa cập nhật</h5>
                                                     <div id="edit-user-status" class="visually-hidden d-flex justify-content-between">
                                                         <input type="text" name="name" id="userStatus" value=""
                                                           class="form-control bg-soft-light border-light"/>
                                                         <div class="float-right">
                                                           <button type="submit" id="receiverSave" onclick="userStatusChange(this)"
                                                             class="btn btn-primary btn-block waves-effect waves-light" style="display: block;">
-                                                            Save</button>
+                                                            Lưu</button>
                                                         </div>
                                                       </div>
                                                 </div>
@@ -512,13 +390,13 @@
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="headerthemes">
                                             <button class="accordion-button font-size-14 fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsethemes" aria-expanded="false" aria-controls="collapsethemes">
-                                                <i class="bx bxs-adjust-alt text-muted me-3"></i> Themes
+                                                <i class="bx bxs-adjust-alt text-muted me-3"></i> Giao diện
                                             </button>
                                         </div>
                                         <div id="collapsethemes" class="accordion-collapse collapse" aria-labelledby="headerthemes" data-bs-parent="#settingprofile">
                                             <div class="accordion-body">
                                                 <div>
-                                                    <h5 class="mb-3 font-size-11 text-muted text-uppercase">Choose Theme Color :</h5>
+                                                    <h5 class="mb-3 font-size-11 text-muted text-uppercase">Chọn màu giao diện :</h5>
                                                     <h5 class="font-size-14 user_themeColor"></h5>
                                                     <div class="d-flex align-items-center flex-wrap gap-2 theme-btn-list theme-color-list">
                                                         <div class="form-check">
@@ -568,7 +446,7 @@
                                                 </div>
 
                                                 <div class="mt-4 pt-2">
-                                                    <h5 class="mb-3 font-size-11 text-muted text-uppercase">Choose Theme Image :</h5>
+                                                    <h5 class="mb-3 font-size-11 text-muted text-uppercase">Chọn ảnh nền :</h5>
                                                     <h5 class="font-size-14 user_themeImage"></h5>
                                                     <div class="d-flex align-items-center flex-wrap gap-2 theme-btn-list theme-btn-list-img">
                                                         <div class="form-check">
@@ -635,7 +513,7 @@
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="privacy1">
                                             <button class="accordion-button font-size-14 fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privacy" aria-expanded="false" aria-controls="privacy">
-                                                <i class="bx bxs-lock text-muted me-3"></i>Privacy
+                                                <i class="bx bxs-lock text-muted me-3"></i>Quyền riêng tư
                                             </button>
                                         </div>
                                         <div id="privacy" class="accordion-collapse collapse" aria-labelledby="privacy1" data-bs-parent="#settingprofile">
@@ -644,12 +522,12 @@
                                                     <li class="list-group-item py-3 px-0 pt-0">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-grow-1 overflow-hidden">
-                                                                <h5 class="font-size-13 mb-0 text-truncate">Profile photo</h5>
+                                                                <h5 class="font-size-13 mb-0 text-truncate">Ảnh đại diện</h5>
                                                             </div>
                                                             <div class="flex-shrink-0 ms-2">
                                                                 <select class="form-select form-select-sm" onchange="profile_droupdown(this);" id="profile_id">
-                                                                    <option value="1" selected>Everyone</option>
-                                                                    <option value="0">Nobody</option>
+                                                                    <option value="1" selected>Mọi người</option>
+                                                                    <option value="0">Chỉ mình tôi</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -657,7 +535,7 @@
                                                     <li class="list-group-item py-3 px-0">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-grow-1 overflow-hidden">
-                                                                <h5 class="font-size-13 mb-0 text-truncate">Last seen</h5>
+                                                                <h5 class="font-size-13 mb-0 text-truncate">Xem lần cuối</h5>
                                                             </div>
                                                             <div class="flex-shrink-0 ms-2">
                                                                 <div class="form-check form-switch">
@@ -670,20 +548,20 @@
                                                     <li class="list-group-item py-3 px-0">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-grow-1 overflow-hidden">
-                                                                <h5 class="font-size-13 mb-0 text-truncate">Status</h5>
+                                                                <h5 class="font-size-13 mb-0 text-truncate">Trạng thái</h5>
                                                             </div>
                                                             <div class="flex-shrink-0 ms-2">
                                                                 <select class="form-select form-select-sm" onchange="status_droupdown(this);" id="select_id">
-                                                                    <option value="1">Everyone</option>
-                                                                    <option value="0">Nobody</option>
+                                                                    <option value="1">Mọi người</option>
+                                                                    <option value="0">Chỉ mình tôi</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    <li class="list-group-item py-3 px-0">
+                                                    <li class="list-group-item py-3 px-0 hidden">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-grow-1 overflow-hidden">
-                                                                <h5 class="font-size-13 mb-0 text-truncate">Read receipts</h5>
+                                                                <h5 class="font-size-13 mb-0 text-truncate">Đọc</h5>
                                                             </div>
                                                             <div class="flex-shrink-0 ms-2">
                                                                 <div class="form-check form-switch">
@@ -693,17 +571,17 @@
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    <li class="list-group-item py-3 px-0 pb-0">
+                                                    <li class="list-group-item py-3 px-0 pb-0 hidden">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-grow-1 overflow-hidden">
-                                                                <h5 class="font-size-13 mb-0 text-truncate">Groups</h5>
+                                                                <h5 class="font-size-13 mb-0 text-truncate">Nhóm</h5>
     
                                                             </div>
                                                             <div class="flex-shrink-0 ms-2">
                                                                 <select class="form-select form-select-sm">
-                                                                    <option value="Everyone" selected>Everyone</option>
-                                                                    <option value="Selected">Selected</option>
-                                                                    <option value="Nobody">Nobody</option>
+                                                                    <option value="Everyone" selected>Mọi người</option>
+                                                                    <option value="Selected">Người được chọn</option>
+                                                                    <option value="Nobody">Chỉ mình tôi</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -717,7 +595,7 @@
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="headersecurity">
                                             <button class="accordion-button font-size-14 fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesecurity" aria-expanded="false" aria-controls="collapsesecurity">
-                                                <i class="bx bxs-check-shield text-muted me-3"></i> Security
+                                                <i class="bx bxs-check-shield text-muted me-3"></i> Bảo mật
                                             </button>
                                         </div>
                                         <div id="collapsesecurity" class="accordion-collapse collapse" aria-labelledby="headersecurity" data-bs-parent="#settingprofile">
@@ -726,7 +604,7 @@
                                                     <li class="list-group-item p-0">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-grow-1 overflow-hidden">
-                                                                <h5 class="font-size-13 mb-0 text-truncate">Show security notification</h5>
+                                                                <h5 class="font-size-13 mb-0 text-truncate">Hiển thị cảnh báo</h5>
                                                             </div>
                                                             <div class="flex-shrink-0 ms-2">
                                                                 <div class="form-check form-switch">
@@ -739,7 +617,7 @@
                                                     <li class="list-group-item p-0">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-grow-1 overflow-hidden">
-                                                                <h5 class="font-size-13 mb-0 text-truncate">Notification Sound</h5>
+                                                                <h5 class="font-size-13 mb-0 text-truncate">Âm thanh thông báo</h5>
                                                             </div>
                                                             <div class="flex-shrink-0 ms-2">
                                                                 <div class="form-check form-switch">
@@ -754,29 +632,6 @@
                                         </div>
                                     </div>
                                     <!-- end security card -->
-
-                                    <div class="accordion-item">
-                                        <div class="accordion-header" id="headerhelp">
-                                            <button class="accordion-button font-size-14 fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsehelp" aria-expanded="false" aria-controls="collapsehelp">
-                                                <i class="bx bxs-help-circle text-muted me-3"></i> Help
-                                            </button>
-                                        </div>
-                                        <div id="collapsehelp" class="accordion-collapse collapse" aria-labelledby="headerhelp" data-bs-parent="#settingprofile">
-                                            <div class="accordion-body">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item py-3 px-0 pt-0">
-                                                        <h5 class="font-size-13 mb-0"><a href="#" class="text-body d-block">FAQs</a></h5>
-                                                    </li>
-                                                    <li class="list-group-item py-3 px-0">
-                                                        <h5 class="font-size-13 mb-0"><a href="#" class="text-body d-block">Contact</a></h5>
-                                                    </li>
-                                                    <li class="list-group-item py-3 px-0 pb-0">
-                                                        <h5 class="font-size-13 mb-0"><a href="#" class="text-body d-block">Terms & Privacy policy</a></h5>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <!-- end profile-setting-accordion -->
                             </div>
@@ -803,9 +658,6 @@
                                         <i class="bx bxs-message-alt-detail display-4 text-primary m-0"></i>
                                     </div>
                                 </div>
-                                <h4>Welcome to Doot Chat App</h4>
-                                <p class="text-muted mb-4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. cum sociis natoque penatibus et</p>
-                                <button type="button" class="btn btn-primary w-lg">Get Started</button>
                             </div>
                         </div>
                     </div>
@@ -831,7 +683,7 @@
                                                     <span class="user-status"></span>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <h6 class="text-truncate mb-0 font-size-18"><a href="#" class="user-profile-show text-reset contact_name">Bella Cote</a></h6>
+                                                    <h6 class="text-truncate mb-0 font-size-18"><a href="#" class="user-profile-show text-reset contact_name"></a></h6>
                                                     <p class="text-truncate text-muted mb-0 typing_msg"></p>
                                                     <p class="contactId"></p>
                                                 </div>
@@ -848,7 +700,7 @@
                                                 </button>
                                                 <div class="dropdown-menu p-0 dropdown-menu-end dropdown-menu-lg">
                                                     <div class="search-box p-2">
-                                                        <input type="text" class="form-control" placeholder="Search.." id="searchChatMessage" onkeyup="searchContactsMsg()">
+                                                        <input type="text" class="form-control" placeholder="Tìm kiếm.." id="searchChatMessage" onkeyup="searchContactsMsg()">
                                                     </div>
                                                 </div>
                                             </div>
@@ -878,11 +730,11 @@
                                                     <i class='bx bx-dots-vertical-rounded' ></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none user-profile-show" href="#">View Profile <i class="bx bx-user text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".audiocallModal">Audio <i class="bx bxs-phone-call text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".videocallModal">Video <i class="bx bx-video text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0);" onclick="deleteAllMessage(this)">Clear Chat<i class="bx bx-trash text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0);" onclick="CloseChat()">Close Chat<i class=" bx bx-window-close text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none user-profile-show" href="#">Xem hồ sơ <i class="bx bx-user text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".audiocallModal">Gọi điện <i class="bx bxs-phone-call text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".videocallModal">Gọi video <i class="bx bx-video text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0);" onclick="deleteAllMessage(this)">Xóa đoạn chat<i class="bx bx-trash text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0);" onclick="CloseChat()">Đóng Chat<i class=" bx bx-window-close text-muted"></i></a>
                                                 </div>
                                             </div>
                                         </li>                                        
@@ -934,7 +786,7 @@
                                                 </button>
                                                 <div class="dropdown-menu p-0 dropdown-menu-end dropdown-menu-lg">
                                                     <div class="search-box p-2">
-                                                        <input type="text" class="form-control" placeholder="Search.." id="searchGroupMessage" onkeyup="searchGroupMsg()">
+                                                        <input type="text" class="form-control" placeholder="Tìm kiếm.." id="searchGroupMessage" onkeyup="searchGroupMsg()">
                                                     </div>
                                                 </div>
                                             </div>
@@ -952,11 +804,11 @@
                                                     <i class='bx bx-dots-vertical-rounded' ></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none user-profile-show" href="#">View Profile <i class="bx bx-user text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".audiocallModal">Audio <i class="bx bxs-phone-call text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".videocallModal">Video <i class="bx bx-video text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0);" onclick="deleteAllMessage(this)">Clear Chat<i class="bx bx-trash text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0);" onclick="CloseChat()">Close Chat<i class="bx bx-window-close text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none user-profile-show" href="#">Xem hồ sơ <i class="bx bx-user text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".audiocallModal">Gọi điện <i class="bx bxs-phone-call text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".videocallModal">Gọi video <i class="bx bx-video text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0);" onclick="deleteAllMessage(this)">Xóa đoạn chat<i class="bx bx-trash text-muted"></i></a>
+                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0);" onclick="CloseChat()">Đóng Chat<i class="bx bx-window-close text-muted"></i></a>
                                                 </div>
                                             </div>
                                         </li>                                        
@@ -1090,7 +942,7 @@
                                                                 </span>
                                                             </label>
                                                         </div>
-                                                        <h5 class="font-size-11 text-uppercase text-truncate mt-3 mb-0">Audio</h5>
+                                                        <h5 class="font-size-11 text-uppercase text-truncate mt-3 mb-0">Gọi điện</h5>
                                                     </div>
                                                 </div>
                                                 <div class="swiper-slide">
@@ -1101,7 +953,7 @@
                                                             </div>
                                                         </div>
                                                         
-                                                        <h5 class="font-size-11 text-uppercase text-truncate mt-3 mb-0"><a href="#" class="text-body stretched-link">Location</a></h5>
+                                                        <h5 class="font-size-11 text-uppercase text-truncate mt-3 mb-0"><a href="#" class="text-body stretched-link">Quốc gia</a></h5>
                                                     </div>
                                                 </div>
                                                 <div class="swiper-slide">
@@ -1122,7 +974,7 @@
                                                                 <i class="bx bx-microphone"></i>
                                                             </div>
                                                         </div>
-                                                        <h5 class="font-size-11 text-uppercase text-truncate mt-3 mb-0"><a href="#" class="text-body stretched-link">Audio</a></h5>
+                                                        <h5 class="font-size-11 text-uppercase text-truncate mt-3 mb-0"><a href="#" class="text-body stretched-link">Gọi điện</a></h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1170,25 +1022,10 @@
                                                     <i class="bx bx-left-arrow-alt"></i>
                                                 </button>
                                             </div>
-                                            <div class="flex-shrink-0">
-                                                <div class="dropdown">
-                                                    <button class="btn nav-btn text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class='bx bx-dots-vertical-rounded'></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none user-profile-show" href="#">View Profile <i class="bx bx-user text-muted"></i></a>
-                                                        <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".audiocallModal">Audio <i class="bx bxs-phone-call text-muted"></i></a>
-                                                        <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none" href="#" data-bs-toggle="modal" data-bs-target=".videocallModal">Video <i class="bx bx-video text-muted"></i></a>
-                                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Archive <i class="bx bx-archive text-muted"></i></a>
-                                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Muted <i class="bx bx-microphone-off text-muted"></i></a>
-                                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Delete <i class="bx bx-trash text-muted"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="mt-auto p-3">
-                                        <h5 class="user-name mb-1 text-truncate contact_name">Bella Cote</h5>
+                                        <h5 class="user-name mb-1 text-truncate contact_name"></h5>
                                         <p class="font-size-14 text-truncate mb-0 contact_status"></p>
                                     </div>
                                 </div>
@@ -1208,17 +1045,7 @@
                                                     <i class="bx bxs-message-alt-detail"></i>
                                                 </span>
                                             </button>
-                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">Message</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm col-4 fav_btn">
-                                        <div class="mb-4">
-                                            <button type="button" class="btn avatar-sm p-0 favourite-btn">
-                                                <span class="avatar-title rounded bg-light text-body">
-                                                    <i class="bx bx-heart"></i>
-                                                </span>
-                                            </button>
-                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">Favourite</h5>
+                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">Nhắn tin</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm col-4 audio-btn">
@@ -1228,7 +1055,7 @@
                                                     <i class="bx bxs-phone-call"></i>
                                                 </span>
                                             </button>
-                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">Audio</h5>
+                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">Gọi điện</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm col-4 video-btn">
@@ -1238,56 +1065,48 @@
                                                     <i class="bx bx-video"></i>
                                                 </span>
                                             </button>
-                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">Video</h5>
+                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">Gọi video</h5>
                                         </div>
                                     </div>
-                                    <div class="col-sm col-4">
+                                    <div class="col-sm col-4 delete-btn">
                                         <div class="mb-4">
-                                            <div class="dropdown">
-                                                <button class="btn avatar-sm p-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="avatar-title bg-light text-body rounded">
-                                                        <i class='bx bx-dots-horizontal-rounded'></i>
-                                                    </span>
-                                                </button>
-                            
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Archive <i class="bx bx-archive text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Muted <i class="bx bx-microphone-off text-muted"></i></a>
-                                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Delete <i class="bx bx-trash text-muted"></i></a>
-                                                </div>
-                                            </div>
-                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">More</h5>
+                                            <button type="button" class="btn avatar-sm p-0" onclick="deleteAllMessage(this)">
+                                                <span class="avatar-title rounded bg-light text-body">
+                                                    <i class="bx bx-trash"></i>
+                                                </span>
+                                            </button>
+                                            <h5 class="font-size-11 text-uppercase text-muted mt-2">Xóa chat</h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-muted pt-4">
-                                <h5 class="font-size-11 text-uppercase">Status :</h5>
+                                <h5 class="font-size-11 text-uppercase">Trạng thái :</h5>
                                 <p class="mb-4 users_status"></p>
                             </div>
 
                             <div class="pb-2">
-                                <h5 class="font-size-11 text-uppercase mb-2">Info :</h5>
+                                <h5 class="font-size-11 text-uppercase mb-2">Thông tin cá nhân :</h5>
                                 <div>
                                     <div class="d-flex align-items-end">
                                         <div class="flex-grow-1">
-                                            <p class="text-muted font-size-14 mb-1">Name</p>
+                                            <p class="text-muted font-size-14 mb-1">Tên</p>
                                         </div>
                                         <button type="button" class="btn btn-soft-primary btn-sm contact_addbtn" data-bs-toggle="modal" data-bs-target="#addContact-exampleModal">
-                                            Add Contact
+                                            Thêm vào danh bạ
                                         </button>
-                                        <div class="flex-shrink-0">
-                                            <button type="button" class="btn btn-sm btn-soft-primary" id="contact_name_edit" onclick="edit_contactName(this)">Edit</button>
+                                        <div class="flex-shrink-0"> 
+                                            <button type="button" class="btn btn-sm btn-soft-primary" id="contact_name_edit" onclick="edit_contactName(this)">Sửa</button>
                                         </div>
                                     </div>
-                                    <h5 class="font-size-14 text-truncate contact_name" id="contact_name">Bella Cote</h5>
+                                    <h5 class="font-size-14 text-truncate contact_name" id="contact_name"></h5>
                                     <div id="edit-contact-name" class="visually-hidden d-flex justify-content-between">
                                         <input type="text" name="name" id="contactname" value=""
                                           class="form-control bg-soft-light border-light" maxlength="20"/>
                                         <div class="float-right">
                                           <button type="submit" id="receiverSave" onclick="contactNameChange(this)"
                                             class="btn btn-primary btn-block waves-effect waves-light" style="display: block;">
-                                            Save</button>
+                                            Lưu</button>
                                         </div>
                                       </div>
                                 </div>    
@@ -1297,12 +1116,12 @@
                                 <div class="receiverInfo">
                                     <div class="mt-4">
                                         <p class="text-muted font-size-14 mb-1">Email</p>
-                                        <h5 class="font-size-14 userEmail">adc@123.com</h5>
+                                        <h5 class="font-size-14 userEmail"></h5>
                                     </div>
 
                                     <div class="mt-4">
-                                        <p class="text-muted font-size-14 mb-1">Location</p>
-                                        <h5 class="font-size-14 mb-0 userLocation">California, USA</h5>
+                                        <p class="text-muted font-size-14 mb-1">Quốc gia</p>
+                                        <h5 class="font-size-14 mb-0 userLocation"></h5>
                                     </div>
                                 </div>
                             </div>
@@ -1312,7 +1131,7 @@
                                 <div>
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
-                                            <h5 class="font-size-11 text-muted text-uppercase">Group Member List</h5>
+                                            <h5 class="font-size-11 text-muted text-uppercase">Nhóm</h5>
                                         </div>
                                     </div>
                                     
@@ -1326,7 +1145,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="flex-grow-1 overflow-hidden">
-                                                        <p class="text-truncate mb-0">Add New Member</p>
+                                                        <p class="text-truncate mb-0">Thêm thành viên</p>
                                                     </div>
                                                 </div>
                                             </a>
@@ -1342,7 +1161,7 @@
                                 <div>
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
-                                            <h5 class="font-size-11 text-muted text-uppercase">Group in common</h5>
+                                            <h5 class="font-size-11 text-muted text-uppercase">Chat</h5>
                                         </div>
                                     </div>
                 
@@ -1358,7 +1177,7 @@
                                         <h5 class="font-size-11 text-muted text-uppercase">Media</h5>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <a href="#" onclick="showFile()" class="font-size-12 d-block mb-2">Show all</a>
+                                        <a href="#" onclick="showFile()" class="font-size-12 d-block mb-2">Hiển thị tất cả</a>
                                     </div>
                                 </div>
                                     <div class="conversation-list">
@@ -1370,7 +1189,7 @@
 
                             <div>
                                 <div>
-                                    <h5 class="font-size-11 text-muted text-uppercase mb-3">Attached Files</h5>
+                                    <h5 class="font-size-11 text-muted text-uppercase mb-3">File đính kèm</h5>
                                 </div>
             
                                 <div class="attachedFileList"></div>
@@ -1390,25 +1209,25 @@
                     <div class="modal-content modal-header-colored shadow-lg border-0">
                         <form class="contact_form needs-validation" novalidate>
                             <div class="modal-header">
-                                <h5 class="modal-title text-white font-size-16" id="addContact-exampleModalLabel">Create Contact</h5>
+                                <h5 class="modal-title text-white font-size-16" id="addContact-exampleModalLabel">Thêm vào danh bạ</h5>
                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="hide_contact_modal">
                                 </button>
                             </div>
                             <div class="modal-body p-4">
                                 <div class="mb-3">
                                     <label for="addcontactemail-input" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="contact_email" placeholder="Enter Email" required="">
+                                    <input type="email" class="form-control" id="contact_email" placeholder="Nhập email" required="">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="addcontactname-input" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="c_name" placeholder="Enter Name" required="">
+                                    <label for="addcontactname-input" class="form-label">Tên</label>
+                                    <input type="text" class="form-control" id="c_name" placeholder="Nhập tên" required="">
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Invite</button>
+                                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Thêm</button>
                             </div>
                         </form>
                     </div>
@@ -1463,7 +1282,7 @@
                                 </div>
                                 <h5 class="text-truncate sender_name"></h5>
                                 <h5 class="text-truncate" id="icvid" hidden></h5>
-                                <h5 class="text-truncate" id="calltype" hidden>video</h5>
+                                <h5 class="text-truncate" id="calltype" hidden>Gọi video</h5>
                                 <p class="text-muted" id="calltypetext">Incoming Call..</p>
                                 <div class="mt-4">
                                     <button type="button" class="btn btn-success avatar-md call-close-btn rounded-circle me-3" id="receivevcall" data-bs-dismiss="modal">
@@ -1506,7 +1325,7 @@
                                 <img src="assets/images/users/avatar-2.jpg" alt="" class="img-thumbnail rounded-circle sender_profile">
                             </div>
                             <div class="mt-4 text-center">
-                                <h5 class="font-size-18 mb-0 text-truncate sender_name">Bella Cote</h5>
+                                <h5 class="font-size-18 mb-0 text-truncate sender_name"></h5>
                             </div>
                             <h5 class="text-truncate" id="icmname"></h5>
                             <h5 class="text-truncate" id="icvid" hidden></h5>
@@ -1586,7 +1405,7 @@
                                 <div class="avatar-xl mx-auto mb-4">
                                     <img src="assets/images/users/avatar-2.jpg" alt="" class="videocallModal-bg rounded-circle">
                                 </div>
-                                <h5 class="font-size-18 text-truncate mb-0">Bella Cote</h5>
+                                <h5 class="font-size-18 text-truncate mb-0"></h5>
                                 <div class="mt-4">
                                     <button type="button" class="btn btn-danger avatar-md call-close-btn rounded-circle me-3" onclick="cutphones()" data-bs-dismiss="modal">
                                         <span class="avatar-title bg-transparent font-size-24">
@@ -1627,7 +1446,7 @@
                             </div>
                             <hr class="my-4">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control bg-light border-0 pe-0" placeholder="Search here.."  id="searchForwardContact" onkeyup="searchForwardContactOnModel()"
+                                <input type="text" class="form-control bg-light border-0 pe-0" placeholder="Tìm kiếm .."  id="searchForwardContact" onkeyup="searchForwardContactOnModel()"
                                 aria-label="Example text with button addon" aria-describedby="forwardSearchbtn-addon">
                                 <button class="btn btn-light" type="button" id="forwardSearchbtn-addon"><i class='bx bx-search align-middle'></i></button>
                             </div>
@@ -1656,20 +1475,20 @@
                     <div class="modal-content modal-header-colored shadow-lg border-0">
                         <form class="contactMsg_form">
                             <div class="modal-header">
-                                <h5 class="modal-title text-white font-size-16">Contacts</h5>
+                                <h5 class="modal-title text-white font-size-16">Nhắn tin</h5>
                                 <button type="button" class="btn-close btn-close-white" id="contacts_model" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body p-4">
                                 
                                 <div class="input-group mb-4">
-                                    <input type="text" class="form-control bg-light border-0 pe-0" placeholder="Search here.." id="searchContactModal" onkeyup="searchContactOnModal()" 
+                                    <input type="text" class="form-control bg-light border-0 pe-0" placeholder="Tìm trong danh bạ.." id="searchContactModal" onkeyup="searchContactOnModal()" 
                                     aria-label="Example text with button addon" aria-describedby="contactSearchbtn-addon">
                                     <button class="btn btn-light" type="button" id="contactSearchbtn-addon"><i class='bx bx-search align-middle'></i></button>
                                 </div>
 
                                 <div class="d-flex align-items-center px-1">
                                     <div class="flex-grow-1">
-                                        <h4 class=" font-size-11 text-muted text-uppercase">Contacts</h4>
+                                        <h4 class=" font-size-11 text-muted text-uppercase">Danh bạ</h4>
                                     </div>
                                 </div>
                                 <div class="contact-modal-list mx-n4 px-1" data-simplebar style="max-height: 200px;">

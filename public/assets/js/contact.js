@@ -126,7 +126,7 @@ socket.on("currentInfo", ({ user }) => {
   });
 
   // current lastseen set
-  user.is_lastseen == 1 ? (document.getElementById("privacy-lastseenSwitch").checked = true) : "";
+  //user.is_lastseen == 1 ? (document.getElementById("privacy-lastseenSwitch").checked = true) : "";
 
   // current privancy status set
   document.querySelector("#select_id").value = user.is_status;
@@ -343,8 +343,7 @@ socket.on("singleContact", ({ contacts }) => {
                               <i class="bx bx-dots-vertical-rounded align-middle"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu-end">
-                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Block <i class="bx bx-block ms-2 text-muted"></i></a>
-                              <a class="dropdown-item d-flex align-items-center justify-content-between delete_contact" href="javascript:void(0);" onclick="contactDelete('${contacts._id}', '${contacts.user_id._id}')">Remove <i class="bx bx-trash ms-2 text-muted"></i></a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-between delete_contact" href="javascript:void(0);" onclick="contactDelete('${contacts._id}', '${contacts.user_id._id}')">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>
                           </div>
                       </div>
                   </div>
@@ -448,8 +447,8 @@ socket.on("contactsLists", ({ contacts }) => {
                               <i class="bx bx-dots-vertical-rounded align-middle"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu-end">
-                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Block <i class="bx bx-block ms-2 text-muted"></i></a>
-                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" onclick="contactDelete('${contact._id}', '${contact.user_id}')">Remove <i class="bx bx-trash ms-2 text-muted"></i></a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Chặn <i class="bx bx-block ms-2 text-muted"></i></a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" onclick="contactDelete('${contact._id}', '${contact.user_id}')">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>
                           </div>
                       </div>
                   </div>
@@ -522,9 +521,9 @@ socket.on("contactsLists", ({ contacts }) => {
       '<div class="mt-3" >\
         <div class="contact-list-title">' + contact.name.charAt(0).toUpperCase() + '</div>\
         <ul id="fcontact-sort-' + contact.name.charAt(0) +'" class="list-unstyled contact-list" >';
-          document.getElementsByClassName("contacts_member")[0].innerHTML += isSortContact;
-          document.getElementById("fcontact-sort-" + contact.name.charAt(0)).innerHTML = document.getElementById("fcontact-sort-" + contact.name.charAt(0)).innerHTML + contactMemberLists;
-          userNameCharAt = contact.name.charAt(0);
+          //document.getElementsByClassName("contacts_member")[0].innerHTML += isSortContact;
+          //document.getElementById("fcontact-sort-" + contact.name.charAt(0)).innerHTML = document.getElementById("fcontact-sort-" + contact.name.charAt(0)).innerHTML + contactMemberLists;
+          //userNameCharAt = contact.name.charAt(0);
         +"</ul>" + "</div>";
   });
   contactList();
@@ -597,9 +596,6 @@ socket.on("contactClickEvent", ({ contacts }) => {
     document.querySelector(".user-profile-sidebar .profile-img").setAttribute("src", contactReceiverImg);
     document.querySelector(".audiocallModal .img-thumbnail").setAttribute("src", contactImg);
     document.querySelector(".videocallModal .videocallModal-bg").setAttribute("src", contactImg);
-    setTimeout(() => {
-      contactFavourite == 1 ? document.querySelector(".favourite-btn").classList.add("active") : document.querySelector(".favourite-btn").classList.remove("active");
-    }, 300);
     window.stop();
     document.querySelector(".group_member_sec").style.display = "none";
     document.querySelector(".common_group_sec").style.display = "block";
@@ -1258,7 +1254,7 @@ function getMsg(id,msg,name, contact_id, contactName, has_images, has_files, has
       var cntactMsg = `<button type="button" class="btn btn-outline-light border-primary text-truncate" data-ids='${contact_id}' onclick="contactClick(this)"><i class="uil uil-user mr-1"></i> Message</button>`
     }
     else{
-      var cntactMsg = `<button type="button" class="btn btn-outline-light border-primary text-truncate contact_addbtn" data-email='${contacts_email[0]}' data-name='${contacts_name[0]}' onclick="contactsMsgClickEvent(this)" data-bs-toggle="modal" data-bs-target="#addContact-exampleModal" style="display: block;">Add Contact</button>`
+      var cntactMsg = `<button type="button" class="btn btn-outline-light border-primary text-truncate contact_addbtn" data-email='${contacts_email[0]}' data-name='${contacts_name[0]}' onclick="contactsMsgClickEvent(this)" data-bs-toggle="modal" data-bs-target="#addContact-exampleModal" style="display: block;">Thêm bạn bè</button>`
     }
     var contactsMsg = contact_msg(contacts_profile,contacts_name[0],cntactMsg)
   }
@@ -1269,7 +1265,7 @@ function getMsg(id,msg,name, contact_id, contactName, has_images, has_files, has
       var message = `<small class='text-secondary edit-flag 11'>${editMessage}</small><p class="mb-0 ctext-content">${msg}</p>`;
     }
     else{
-      var message = `<p class="mb-0 ctext-content">Deleted Message</p>`
+      var message = `<p class="mb-0 ctext-content">Xóad Message</p>`
     }
   }
   if (has_dropDown == "true") {
@@ -1368,9 +1364,8 @@ var receiverAttachedFile = `
                   </a>
                   <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Share <i class="bx bx-share-alt ms-2 text-muted"></i></a>
-                      <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bx bx-bookmarks text-muted ms-2"></i></a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Delete<i class="bx bx-trash ms-2 text-muted"></i></a>
+                      <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Xóa<i class="bx bx-trash ms-2 text-muted"></i></a>
                   </div>
               </div>
           </div>
@@ -1396,11 +1391,10 @@ function image_file(id,file){
                         <i class="bx bx-dots-horizontal-rounded"></i>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="assets/images/image/${file}" download="">Download <i class="bx bx-download ms-2 text-muted"></i></a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" data-image="${file}" onclick="singleMessageReply(this)" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Reply <i class="bx bx-share ms-2 text-muted"></i></a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" onclick="singleMessageForward(this)" data-bs-toggle="modal" data-bs-target=".forwardModal">Forward <i class="bx bx-share-alt ms-2 text-muted"></i></a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bx bx-bookmarks text-muted ms-2"></i></a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between delete-image" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Delete <i class="bx bx-trash ms-2 text-muted"></i></a>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="assets/images/image/${file}" download="">Tải về <i class="bx bx-download ms-2 text-muted"></i></a>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" data-image="${file}" onclick="singleMessageReply(this)" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Trả lời <i class="bx bx-share ms-2 text-muted"></i></a>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" onclick="singleMessageForward(this)" data-bs-toggle="modal" data-bs-target=".forwardModal">Chuyển tiếp <i class="bx bx-share-alt ms-2 text-muted"></i></a>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between delete-image" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>
                     </div>
                 </li>
             </ul>
@@ -1422,11 +1416,10 @@ function image_file(id,file){
                         <i class="bx bx-dots-horizontal-rounded"></i>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="assets/images/image/${file}" download="">Download <i class="bx bx-download ms-2 text-muted"></i></a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Reply <i class="bx bx-share ms-2 text-muted"></i></a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="modal" data-bs-target=".forwardModal">Forward <i class="bx bx-share-alt ms-2 text-muted"></i></a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bx bx-bookmarks text-muted ms-2"></i></a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between delete-image" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Delete <i class="bx bx-trash ms-2 text-muted"></i></a>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="assets/images/image/${file}" download="">Tải về <i class="bx bx-download ms-2 text-muted"></i></a>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Trả lời <i class="bx bx-share ms-2 text-muted"></i></a>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-bs-toggle="modal" data-bs-target=".forwardModal">Chuyển tiếp <i class="bx bx-share-alt ms-2 text-muted"></i></a>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between delete-image" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>
                     </div>
                 </li>
             </ul>
@@ -1507,9 +1500,8 @@ var receiverAudioFile = `
                   </a>
                   <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Share <i class="bx bx-share-alt ms-2 text-muted"></i></a>
-                      <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bx bx-bookmarks text-muted ms-2"></i></a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Delete<i class="bx bx-trash ms-2 text-muted"></i></a>
+                      <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Xóa<i class="bx bx-trash ms-2 text-muted"></i></a>
                   </div>
               </div>
           </div>
@@ -1530,10 +1522,10 @@ function droup_down_btn(id,msg,location,contact_id,isAlighn){
       <i class="ri-more-2-fill"></i>
   </a>
   <div class="dropdown-menu">
-      <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" location="${current_location}" onclick="singleMessageReply(this)" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Reply <i class="bx bx-share ms-2 text-muted"></i></a>
-      <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" location="${current_location}" contact="${contact_id}" onclick="singleMessageForward(this)" data-bs-toggle="modal" data-bs-target=".forwardModal" >Forward <i class="bx bx-share-alt ms-2 text-muted"></i></a>`;
+      <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" location="${current_location}" onclick="singleMessageReply(this)" data-bs-toggle="collapse" data-bs-target=".replyCollapse">Trả lời <i class="bx bx-share ms-2 text-muted"></i></a>
+      <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" location="${current_location}" contact="${contact_id}" onclick="singleMessageForward(this)" data-bs-toggle="modal" data-bs-target=".forwardModal" >Chuyển tiếp <i class="bx bx-share-alt ms-2 text-muted"></i></a>`;
       if(isAlighn === ' right'){
-        droupdown += `<a class="dropdown-item d-flex align-items-center justify-content-between delete-item" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Delete <i class="bx bx-trash text-muted ms-2"></i></a>`;
+        droupdown += `<a class="dropdown-item d-flex align-items-center justify-content-between delete-item" href="javascript:void(0);" id="${id}" onclick="singleMessageDelete(this)">Xóa <i class="bx bx-trash text-muted ms-2"></i></a>`;
         droupdown += `<a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" id="${id}" location="${current_location}" onclick="singleMessageUpdate(this)">Edit <i class="bx bx-edit ms-2 text-muted"></i></a>`;
       }
       droupdown += msg ? `<a class="dropdown-item d-flex align-items-center justify-content-between copy-message" href="javascript:void(0);" id="${id}" onclick="copyMessage(this)">Copy <i class="bx bx-copy text-muted ms-2"></i></a>`:'';
@@ -1587,8 +1579,8 @@ function contact_msg(profile,name,btn){
         <p class="text-truncate mb-0 contactNames fw-bold fs-6">${name}</p>
       </div>
     </div>
-    <hr class="mt-3 my-0">
-    <div role="group" class="btn-group">
+    <hr class="mt-3 my-0 hidden">
+    <div role="group" class="btn-group hidden">
         ${btn}
     </div>
   </div>`;
@@ -1762,44 +1754,6 @@ function deleteImage(image) {
 
 //------------------------------ Contact Receiver Info ----------------------------//
 var active;
-// Receiver Favourity Btn Change
-// favourite btn
-var favouriteBtn = document.getElementsByClassName("favourite-btn");
-for (var i = 0; i < favouriteBtn.length; i++) {
-  var favouriteBtns = favouriteBtn[i];
-  favouriteBtns.onclick = function () {
-    favouriteBtns.classList.toggle("active");
-    active =
-      document
-        .getElementsByClassName("favourite-btn")[0]
-        .classList.contains("active") == true
-        ? 1
-        : 0;
-    socket.emit("favourityContactUpdate", {
-      user_id: receiverId,
-      created_by: userId,
-      is_favourite: active,
-    });
-
-    if (active == 1) {
-      let fav = document.getElementById("favourite-users");
-      let li = document.getElementById("contact-id-" + receiverId);
-      fav.insertBefore(li, fav.firstElementChild.nextElementSibling);
-      document
-        .getElementById("contact-id-" + receiverId)
-        .querySelector(".contact_favourite").innerHTML = 1;
-    }
-    if (active == 0) {
-      let drc = document.getElementById("usersList");
-      let li = document.getElementById("contact-id-" + receiverId);
-      drc.insertBefore(li, drc.firstElementChild.nextElementSibling);
-      document
-        .getElementById("contact-id-" + receiverId)
-        .querySelector(".contact_favourite").innerHTML = 0;
-    }
-  };
-}
-
 // Receiver Name Update
 function edit_contactName(message) {
   document.getElementById("contact_name").classList.toggle("visually-hidden");
@@ -2086,7 +2040,7 @@ function singleMessageReply(message) {
         </div>
         <div class="flex-grow-1 overflow-hidden">
             <div class="text-start">
-                <h5 class="font-size-14 mb-1">Location</h5>
+                <h5 class="font-size-14 mb-1">Quốc gia</h5>
             </div>
         </div>
     </div>`;
@@ -2229,7 +2183,7 @@ function singleMessageForward(message) {
         </div>
         <div class="flex-grow-1 overflow-hidden">
             <div class="text-start">
-                <h5 class="font-size-14 mb-1">Location</h5>
+                <h5 class="font-size-14 mb-1">Quốc gia</h5>
             </div>
         </div>
     </div>`;
@@ -2478,11 +2432,11 @@ socket.on("userStatus",function ({id, status}) {
   var cratedTime = hour + ":" + minute + " " + ampm;
   
   if (datewise == todaydate) {
-    var lastSeen = "last seen today at "+cratedTime
+    var lastSeen = "Online lần cuối vào "+cratedTime
   } else if (datewise == yesterdaydate) {
-    var lastSeen = "last seen yesterday at "+cratedTime;
+    var lastSeen = "Online hôm qua vào "+cratedTime;
   } else {
-    var lastSeen = "last seen "+datewise+' , '+cratedTime;
+    var lastSeen = "Online lần cuối vào "+datewise+' , '+cratedTime;
   }
   if(status != "Online"){
     status = lastSeen;
@@ -2702,38 +2656,6 @@ function notification_muted_switch(src) {
   socket.emit("userMutedNotification", { user_id: userId, is_muted: is_muted });
 }
 
-/**
- * Group Section
- */
-const groupsList = document.querySelector(".channelList");
-//-------------------------- Create Group --------------------------------//
-const groupForm = document.querySelector(".group_form");
-groupForm.addEventListener("submit", (e) => {
-	e.preventDefault();
-	name = document.getElementById("group_name").value;
-	description = document.getElementById("group_description").value;
-	var user_id = userId;
-	var groupMember = [];
-  	document.querySelectorAll("input[name='group_member']:checked").forEach(function (e) {
-      f = 1;
-      groupMember.push(e.value);
-	});
-  socket.emit("groupCreate", { name, description, user_id, groupMember });
-});
-
-// ---------------------------- Group member create ---------------------------------//
-const groupMemberForm = document.querySelector(".group_member_form");
-groupMemberForm.addEventListener("submit", (e) => {
-  	e.preventDefault();
-  	var groupMember = [];
-  	document.querySelectorAll("input[name='group_member']:checked").forEach(function (e) {
-      f = 1;
-      groupMember.push(e.value);
-    });
-	socket.emit("groupMemberCreate", { groupMember, groupId, userId });
-	document.getElementById("member_model").click();
-	document.querySelector(".group_member_form").reset();
-});
 
 // Error Handling
 socket.on("errorHandling", (err) => {
@@ -2855,7 +2777,7 @@ socket.on("groupDetail", ({ groupMember, groupId }) => {
       document.querySelector(".member_add li").classList.remove("d-none");
       setTimeout(function () {
         document.querySelector(".exit_group").innerHTML = "";
-        let exit_btn = `<div class="dropdown-divider"></div><a class="text-danger" onclick="deleteGroup('${contact.group_id}')" href="javascript:void(0);">Delete Group<i class="ri-delete-bin-line float-end text-danger"></i></a>`;
+        let exit_btn = `<div class="dropdown-divider"></div><a class="text-danger" onclick="deleteGroup('${contact.group_id}')" href="javascript:void(0);">Xóa Group<i class="ri-delete-bin-line float-end text-danger"></i></a>`;
         document.querySelector(".exit_group").innerHTML += exit_btn;
       }, 800);
     }

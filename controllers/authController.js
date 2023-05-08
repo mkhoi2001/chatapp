@@ -91,7 +91,7 @@ exports.signin = catchAsync(async (req, res, next) => {
             message: 'Email hoặc mật khẩu không đúng'
         });
     }
-    createSendToken(user, 200, res, 'Login Successfully');
+    createSendToken(user, 200, res, 'Đăng nhập thành công');
 
 });
 
