@@ -31,12 +31,8 @@ const userSchema = new mongoose.Schema({
             message: 'Mật khẩu và xác thực không giống nhau'
         }
     },
-    location:{
-        type:String,
-        required: [true, 'Vui lòng cung cấp địa chỉ!']
-    },
     status:{
-        type:String, 
+        type:String,
     },
     theme_color:{
         type:String
@@ -90,7 +86,7 @@ userSchema.pre('save', async function(next){
     next();
 });
 
-// Login Corrent password 
+// Login Corrent password
 userSchema.methods.correctPassword = async function(candidatePassword,userPassword){
     return await bcrypt.compare(candidatePassword,userPassword);
 }
