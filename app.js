@@ -68,7 +68,11 @@ mongoose.connect(DB,{
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true
-});
+}).then(() => console.log('Database Connection!!'))
+
+mongoose.connection.on('error',(err)=>{
+    console.log('Database Connection failed: ${error.message}')
+})
 
 
 let vausers = [];
@@ -79,7 +83,7 @@ function findUser(username) {
     }
 }
 
-// Socket Connection 
+// Socket Connection
 io.on("connection", (socket) => {
     console.log("Socket Connected...");
 
@@ -182,7 +186,7 @@ io.on("connection", (socket) => {
     });
 
     //--------------------- Contact Message send ---------------------//
-    socket.on("send_msg", async function({ message, sender_id, receiver_id, has_dropDown, has_files, has_images, has_audio, is_replay, replay_id, location, voice_recoder, userId, userEmail, userName, userLocation, profile,is_profile }) {      
+    socket.on("send_msg", async function({ message, sender_id, receiver_id, has_dropDown, has_files, has_images, has_audio, is_replay, replay_id, location, voice_recoder, userId, userEmail, userName, userLocation, profile,is_profile }) {
         const contact_message = new Message({ message, sender_id, receiver_id, has_dropDown, has_files, has_images, has_audio, is_replay, replay_id,location,voice_recoder });
         var contact_list = await Contact.findOne({user_id:sender_id,created_by:receiver_id});
         contact_message.save().then(async() => {
@@ -193,13 +197,13 @@ io.on("connection", (socket) => {
             let myid;
             myid = receiver_id;
             if(contact_list != null){
-                contact_name = contact_list.name;            
+                contact_name = contact_list.name;
             }
             else{
-                contact_name = "";  
+                contact_name = "";
             }
             contactsUserIdGet(receiver_id, userId).then((contact) => {
-                receiver_name = contact.name;                
+                receiver_name = contact.name;
                 receiver_profile = contact.user_id ? contact.user_id.profile : contact.profile;
                 io.to(socket.id).emit("get_msg_res", ({ id, message, sender_id, receiver_id, receiver_name, receiver_profile, has_dropDown, has_files, has_images, has_audio, createdAt, is_replay, replay_id, location, is_profile }));
                 for (const key in users) {
@@ -225,7 +229,7 @@ io.on("connection", (socket) => {
 
 
     //------------------- Contacts Message send --------------------//
-    socket.on("contacts_message_create", async function ({ sender_id, receiver_id, contactsIds, profile }) { 
+    socket.on("contacts_message_create", async function ({ sender_id, receiver_id, contactsIds, profile }) {
         contactsIds.forEach(async contacts_id => {
             var contactsMsg = await Message.create({ sender_id,receiver_id,contacts_id, profile})
             id = contactsMsg._id;
@@ -390,7 +394,7 @@ io.on("connection", (socket) => {
     socket.on("updateContactName", function ({ userId, receiverId, name }) {
         contactNameUpdate(userId, receiverId, name).then((userInfo) => { });
     });
-    
+
     // Contact All Message Delete
     socket.on('all_Message_delete', ({ conversation,receiverId, userId }) => {
         allMessageDelete(receiverId,userId).then((message) => { });
@@ -438,7 +442,7 @@ io.on("connection", (socket) => {
         });
     });
 
-    // Favourite Update 
+    // Favourite Update
     socket.on("favourityContactUpdate", ({ user_id, created_by, is_favourite }) => {
         favouriteUpdate(user_id, created_by, is_favourite).then((message) => { });
     });
@@ -474,32 +478,32 @@ io.on("connection", (socket) => {
         userStatusUpdate(userId, status).then((userInfo) => { });
     });
 
-    // Themes Color set 
+    // Themes Color set
     socket.on("add_theme_color", ({ user_id, theme_color }) => {
         themeColorUpdate(user_id, theme_color).then((message) => {});
     });
 
-    // Themes Image set 
+    // Themes Image set
     socket.on("add_theme_image", ({ user_id, theme_image }) => {
         themeImageUpdate(user_id, theme_image).then((message) => {});
     });
 
-    // lastseen security 
+    // lastseen security
     socket.on("userLastSeen", ({ user_id, lastseen }) => {
         lastseenUpdate(user_id, lastseen).then((message) => {});
     });
 
-    // notification security 
+    // notification security
     socket.on("userNotification", ({ user_id, notification }) => {
         notificationUpdate(user_id, notification).then((message) => {});
     });
 
-    // notification muted security 
+    // notification muted security
     socket.on("userMutedNotification", ({ user_id, is_muted }) => {
         notificationMutedUpdate(user_id, is_muted).then((message) => {});
     });
 
-    
+
     //-------------------- Typing set ---------------------------//
     // Single Message Typing Set
     socket.on("typing", function (data) {

@@ -52,7 +52,7 @@ const createSendToken = (user, statusCode, res, msg) => {
 };
 
 /**
- * SignUp post Form 
+ * SignUp post Form
  */
 exports.signup = catchAsync(async (req, res, next) => {
     const newUser = await User.create(req.body);
@@ -79,7 +79,7 @@ exports.getlistUser = catchAsync(async(req, res)=>{
 };
 
 /**
- * SignIn post Form 
+ * SignIn post Form
  */
 exports.signin = catchAsync(async (req, res, next) => {
 
@@ -111,7 +111,7 @@ exports.signin = catchAsync(async (req, res, next) => {
 };
 
 /**
- * ForgotPassword post Form 
+ * ForgotPassword post Form
  */
 exports.forgotPassword = catchAsync (async (req,res, next) => {
     // Get user based on posted email
@@ -137,7 +137,7 @@ exports.forgotPassword = catchAsync (async (req,res, next) => {
             subject: 'Mã cấp lại mật khẩu hiệu lực trong 10 phút',
             message
         });
-    
+
         return res.status(200).json({
             status: 'success',
             message: 'Mã cấp lại mật khẩu đã được gửi tới email',
@@ -165,7 +165,7 @@ exports.forgotPassword = catchAsync (async (req,res, next) => {
 };
 
 /**
- * ResetPassword post Form 
+ * ResetPassword post Form
  */
 exports.resetPassword = catchAsync(async (req,res,next) => {
     // 1) Get User based on the token
