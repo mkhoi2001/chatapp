@@ -1,5 +1,5 @@
 /*
-Template Name: Doot - Responsive Bootstrap 5 Chat App
+Template Name: Chat App
 Author: Themesbrand
 Website: https://Themesbrand.com/
 Contact: Themesbrand@gmail.com

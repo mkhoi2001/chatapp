@@ -447,7 +447,7 @@ socket.on("contactsLists", ({ contacts }) => {
                               <i class="bx bx-dots-vertical-rounded align-middle"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu-end">
-                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Thêm bạn bè <i class="bx bx-block ms-2 text-muted"></i></a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Thêm bạn bè <i class="bx bx-plus ms-2 text-muted"></i></a>
                               <!--<a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" onclick="contactDelete('${contact._id}', '${contact.user_id}')">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>-->
                           </div>
                       </div>
