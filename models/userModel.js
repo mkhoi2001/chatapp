@@ -31,10 +31,10 @@ const userSchema = new mongoose.Schema({
             message: 'Mật khẩu và xác thực không giống nhau'
         }
     },
-    location:{
+    /*location:{
         type:String,
         required: [true, 'Vui lòng cung cấp địa chỉ!']
-    },
+    },*/
     status:{
         type:String, 
     },

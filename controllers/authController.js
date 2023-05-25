@@ -63,7 +63,14 @@ exports.signup = catchAsync(async (req, res, next) => {
     });
 });
 
-
+exports.getlistUser = catchAsync(async(req, res)=>{
+    const listUser = await User.find();
+    res.status(200).json({
+        status:"Success",
+        data: listUser,
+        message:"Lay thong tin user thanh cong"
+    })
+})
 /**
  * View Login
  */

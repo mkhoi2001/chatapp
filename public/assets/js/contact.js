@@ -126,7 +126,7 @@ socket.on("currentInfo", ({ user }) => {
   });
 
   // current lastseen set
-  //user.is_lastseen == 1 ? (document.getElementById("privacy-lastseenSwitch").checked = true) : "";
+  user.is_lastseen == 1 ? (document.getElementById("privacy-lastseenSwitch").checked = true) : "";
 
   // current privancy status set
   document.querySelector("#select_id").value = user.is_status;
@@ -321,7 +321,7 @@ socket.on("Success", ({ msg }) => {
   document.querySelector(".error_message").innerHTML = "";
 });
 
-//--------------------- Contact Appned --------------------//
+//--------------------- Contact Append --------------------//
 socket.on("singleContact", ({ contacts }) => {
   var userNameCharAt = "";
   var isSortAlphabets = [];
@@ -427,11 +427,11 @@ socket.on("contactsLists", ({ contacts }) => {
     ucontacts[index] = contact.user_id;
 
     //-------------------- Contact List ----------------------//
-    var profile = contact.profile[0]
-      ? `<img src="assets/images/users/${contact.profile[0]}" class="img-fluid rounded-circle" alt="">`
-      : `<span class="avatar-title rounded-circle bg-primary font-size-10">${contact.name[0]}</span>`;
+    var profile = contact.profile
+      ? `<img src="assets/images/users/${contact.profile}" class="img-fluid rounded-circle avatar-title" alt="" style="object-fit:cover">`
+      : `<span class="avatar-title rounded-circle bg-primary font-size-10">${contact.name.charAt(0).toUpperCase()}</span>`;
     const msgHTML = `
-        <li id="contacts-id-${contact.user_id}" data-ids='${contact.user_id}' onclick="contactClickEvent(this)">
+        <li id="contacts-id-${contact._id}" data-ids='${contact._id}' onclick="contactClickEvent(this)">
               <div class="d-flex align-items-center">
                   <div class="flex-shrink-0 me-2">
                       <div class="avatar-xs">
@@ -447,8 +447,8 @@ socket.on("contactsLists", ({ contacts }) => {
                               <i class="bx bx-dots-vertical-rounded align-middle"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu-end">
-                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Chặn <i class="bx bx-block ms-2 text-muted"></i></a>
-                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" onclick="contactDelete('${contact._id}', '${contact.user_id}')">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Thêm bạn bè <i class="bx bx-block ms-2 text-muted"></i></a>
+                              <!--<a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" onclick="contactDelete('${contact._id}', '${contact.user_id}')">Xóa <i class="bx bx-trash ms-2 text-muted"></i></a>-->
                           </div>
                       </div>
                   </div>

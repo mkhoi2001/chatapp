@@ -81,73 +81,75 @@ function currentContactsWithUserId(id,userId) {
 }
 
 // Get All Contact User wise
-function contactsGet(userId) {
-  const users = Contact.aggregate([
-    {
-      $lookup: {
-        from: "users",
-        let: { userId: "$user_id" },
-        pipeline: [
-          {
-            $match: {
-              $expr: { $eq: ["$_id", { $toObjectId: "$$userId" }] },
-            },
-          },
-        ],
-        as: "user",
-      },
-    },
-    {
-      $lookup: {
-        from: "messages",
-        let: { userId: "$user_id" },
-        pipeline: [
-          {
-            $match: {
-              $expr: { $eq: ["$receiver_id", "$$userId"] },
-            },
-          },
-          { $sort: { _id: -1 } },
-          { $limit: 1 },
-        ],
-        as: "message",
-      },
-    },
-    {
-      $lookup: {
-        from: "messages",
-        let: { userId: "$user_id" },
-        pipeline: [
-          {
-            $match: {
-              $expr: { $eq: ["$receiver_id", "$$userId"] },
-            },
-          },
-        ],
-        as: "msg",
-      },
-    },
-    { $sort: { name: 1 } },
-    { $match: { created_by: userId } },
-    {
-      $project: {
-        name: "$name",
-        email: "$email",
-        user_id: "$user_id",
-        created_by: "$created_by",
-        is_favourite: "$is_favourite",
-        userImg: "$user.image",
-        createdAt: "$user.createdAt",
-        location: "$user.location",
-        profile: "$user.profile",
-        message: "$message.message",
-        unread: "$msg.unread",
-        file_upload: "$message.file_upload",
-        created_at: "$message.createdAt",
+async function contactsGet(userId) {
+  // const users = Contact.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: "users",
+  //       let: { userId: "$user_id" },
+  //       pipeline: [
+  //         {
+  //           $match: {
+  //             $expr: { $eq: ["$_id", { $toObjectId: "$$userId" }] },
+  //           },
+  //         },
+  //       ],
+  //       as: "user",
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "messages",
+  //       let: { userId: "$user_id" },
+  //       pipeline: [
+  //         {
+  //           $match: {
+  //             $expr: { $eq: ["$receiver_id", "$$userId"] },
+  //           },
+  //         },
+  //         { $sort: { _id: -1 } },
+  //         { $limit: 1 },
+  //       ],
+  //       as: "message",
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "messages",
+  //       let: { userId: "$user_id" },
+  //       pipeline: [
+  //         {
+  //           $match: {
+  //             $expr: { $eq: ["$receiver_id", "$$userId"] },
+  //           },
+  //         },
+  //       ],
+  //       as: "msg",
+  //     },
+  //   },
+  //   { $sort: { name: 1 } },
+  //   { $match: { created_by: userId } },
+  //   {
+  //     $project: {
+  //       name: "$name",
+  //       email: "$email",
+  //       user_id: "$user_id",
+  //       created_by: "$created_by",
+  //       is_favourite: "$is_favourite",
+  //       userImg: "$user.image",
+  //       createdAt: "$user.createdAt",
+  //       location: "$user.location",
+  //       profile: "$user.profile",
+  //       message: "$message.message",
+  //       unread: "$msg.unread",
+  //       file_upload: "$message.file_upload",
+  //       created_at: "$message.createdAt",
 
-      },
-    },
-  ]);
+  //     },
+  //   },
+  // ]);
+  const users = await User.find({});
+  console.log(users);
   return users;
 }
 
