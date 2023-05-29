@@ -82,75 +82,94 @@ function currentContactsWithUserId(id,userId) {
 
 // Get All Contact User wise
 async function contactsGet(userId) {
-  // const users = Contact.aggregate([
-  //   {
-  //     $lookup: {
-  //       from: "users",
-  //       let: { userId: "$user_id" },
-  //       pipeline: [
-  //         {
-  //           $match: {
-  //             $expr: { $eq: ["$_id", { $toObjectId: "$$userId" }] },
-  //           },
-  //         },
-  //       ],
-  //       as: "user",
-  //     },
-  //   },
-  //   {
-  //     $lookup: {
-  //       from: "messages",
-  //       let: { userId: "$user_id" },
-  //       pipeline: [
-  //         {
-  //           $match: {
-  //             $expr: { $eq: ["$receiver_id", "$$userId"] },
-  //           },
-  //         },
-  //         { $sort: { _id: -1 } },
-  //         { $limit: 1 },
-  //       ],
-  //       as: "message",
-  //     },
-  //   },
-  //   {
-  //     $lookup: {
-  //       from: "messages",
-  //       let: { userId: "$user_id" },
-  //       pipeline: [
-  //         {
-  //           $match: {
-  //             $expr: { $eq: ["$receiver_id", "$$userId"] },
-  //           },
-  //         },
-  //       ],
-  //       as: "msg",
-  //     },
-  //   },
-  //   { $sort: { name: 1 } },
-  //   { $match: { created_by: userId } },
-  //   {
-  //     $project: {
-  //       name: "$name",
-  //       email: "$email",
-  //       user_id: "$user_id",
-  //       created_by: "$created_by",
-  //       is_favourite: "$is_favourite",
-  //       userImg: "$user.image",
-  //       createdAt: "$user.createdAt",
-  //       location: "$user.location",
-  //       profile: "$user.profile",
-  //       message: "$message.message",
-  //       unread: "$msg.unread",
-  //       file_upload: "$message.file_upload",
-  //       created_at: "$message.createdAt",
-
-  //     },
-  //   },
-  // ]);
-  const users = await User.find({});
-  console.log(users);
-  return users;
+  const users = Contact.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        let: { userId: "$user_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$_id", { $toObjectId: "$$userId" }] },
+            },
+          },
+        ],
+        as: "user",
+      },
+    },
+    {
+      $lookup: {
+        from: "messages",
+        let: { userId: "$user_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$receiver_id", "$$userId"] },
+            },
+          },
+          { $sort: { _id: -1 } },
+          { $limit: 1 },
+        ],
+        as: "message",
+      },
+    },
+    {
+      $lookup: {
+        from: "messages",
+        let: { userId: "$user_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$receiver_id", "$$userId"] },
+            },
+          },
+        ],
+        as: "msg",
+      },
+    },
+    { $sort: { name: 1 } },
+    { $match: { created_by: userId } },
+    {
+      $project: {
+        name: "$name",
+        email: "$email",
+        user_id: "$user_id",
+        created_by: "$created_by",
+        is_favourite: "$is_favourite",
+        userImg: "$user.image",
+        createdAt: "$user.createdAt",
+        location: "$user.location",
+        profile: "$user.profile",
+        message: "$message.message",
+        unread: "$msg.unread",
+        file_upload: "$message.file_upload",
+        created_at: "$message.createdAt",
+      },
+    },
+  ]);
+  const user2 = await User.find({});
+  const user3 = user2.map(user => {
+    return {
+      uid: userId,
+      name: user.name,
+      email: user.email,
+      user_id: user._id,
+      created_by: "",
+      is_favourite: "",
+      userImg: user.profile,
+      createdAt: user.createdAt,
+      location: "",
+      profile: user.profile,
+      message: "",
+      unread: "",
+      file_upload: "",
+      created_at: "",
+    };
+  });
+  const user4 = user3.filter(user => {
+    return user.uid != user.user_id;
+  });
+  return user4;
 }
 
 // Message Update

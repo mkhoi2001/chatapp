@@ -9,8 +9,8 @@ const msgSchema = new mongoose.Schema({
         default: true
     },
     has_images: {
-        type:Object,
-        default: null
+        type:String,
+        default: false
     },
     has_files: {
         type:Object,
