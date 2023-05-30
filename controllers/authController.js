@@ -102,6 +102,114 @@ exports.signin = catchAsync(async (req, res, next) => {
 
 });
 
+exports.getlistUser = catchAsync(async (req, res) => {
+  const listUser = await User.find();
+  try {
+    res.status(200).json({
+      status: "Success",
+      message: "Lay thong tin user thanh cong",
+      listUser: listUser,
+    });
+  } catch (error) {
+    console.log("Lỗi khi cập nhật trạng thái:", error);
+    return res.status(500).json({
+      status: "fail",
+      message: "Lỗi khi cập nhật cập nhật trạng thái",
+    });
+  }
+});
+
+exports.getProfileById = catchAsync(async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const user = await User.findById(id).select(
+      "email name status profile bg_image"
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Không tìm thấy người dùng",
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      message: "Lấy thông tin người dùng thành công",
+      data: {
+        email: user.email,
+        name: user.name,
+        status: user.status,
+        profile: user.profile,
+        bg_image: user.bg_image,
+        id: user.id,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Lỗi khi lấy thông tin người dùng",
+    });
+  }
+});
+
+exports.updateNameById = async (req, res) => {
+  const { id, name } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(id, { name }, { new: true });
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Người dùng không tồn tại",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Cập nhật Tên người dùng thành công",
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    console.log("Lỗi khi cập nhật Tên người dùng:", error);
+    return res.status(500).json({
+      status: "fail",
+      message: "Lỗi khi cập nhật cập nhật Tên người dùng",
+    });
+  }
+};
+
+exports.updateStatusById = async (req, res) => {
+  const { id, status } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(id, { status }, { new: true });
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Người dùng không tồn tại",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Cập nhật trạng thái thành công",
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    console.log("Lỗi khi cập nhật trạng thái:", error);
+    return res.status(500).json({
+      status: "fail",
+      message: "Lỗi khi cập nhật cập nhật trạng thái",
+    });
+  }
+};
+
 
 /**
  * View forgotPassword

@@ -8,6 +8,10 @@ router.post('/signin', authController.signin);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
 router.post('/forgotPassword', authController.forgotPassword);
+router.post("/getProfileById", authController.getProfileById);
+router.post("/updateNameById", authController.updateNameById);
+router.post("/updateStatusById", authController.updateStatusById);
+router.get("/getlistUser", authController.getlistUser);
 
 // view Routes
 router.get('/register', authController.register);
