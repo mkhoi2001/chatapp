@@ -84,8 +84,8 @@ socket.on("user-disconnected", (socket_id) => {
 socket.emit("currentUserInfo", userId);
 socket.on("currentInfo", ({ user }) => {
   profile = user.profile;
-  var profile_img = user.profile ? user.profile : "avatar-1.jpg";
-  var profile_bg_img = user.bg_image ? user.bg_image : "img-1.jpg";
+  var profile_img = user.profile ? user.profile : "assets/images/users/avatar-1.jpg";
+  var profile_bg_img = user.bg_image ? user.bg_image : "assets/images/users/img-1.jpg";
   themesColor = user.theme_color;
   themeImage = user.theme_image;
 
@@ -104,7 +104,7 @@ socket.on("currentInfo", ({ user }) => {
   // Current user profile set
   var userProfile = document.querySelectorAll(".user-profile-image");
   Array.from(userProfile).forEach((element, index) => {
-    element.src = `assets/images/users/${profile_img}`;
+    element.src = `${profile_img}`;
   });
 
   // Current background image set
@@ -325,7 +325,7 @@ socket.on("Success", ({ msg }) => {
 socket.on("singleContact", ({ contacts }) => {
   var userNameCharAt = "";
   var isSortAlphabets = [];
-  var profile = contacts.user_id.profile ? `<img src="assets/images/users/${contacts.user_id.profile}" class="img-fluid rounded-circle" alt="">` : `<span class="avatar-title rounded-circle bg-primary font-size-10">${contacts.name[0]}</span>`;
+  var profile = contacts.user_id.profile ? `<img src="${contacts.user_id.profile}" class="img-fluid rounded-circle" alt="">` : `<span class="avatar-title rounded-circle bg-primary font-size-10">${contacts.name[0]}</span>`;
   const msgHTML = `
         <li id="contacts-id-${contacts.user_id._id}" data-ids='${contacts.user_id._id}' onclick="contactClickEvent(this)">
               <div class="d-flex align-items-center">
@@ -429,7 +429,7 @@ socket.on("contactsLists", ({ contacts }) => {
 
     //-------------------- Contact List ----------------------//
     var profile = contact.profile
-      ? `<img src="assets/images/users/${contact.profile}" class="img-fluid rounded-circle" alt="" style="aspect-ratio:1;object-fit:cover">`
+      ? `<img src="${contact.profile}" class="img-fluid rounded-circle" alt="" style="aspect-ratio:1;object-fit:cover">`
       : `<span class="avatar-title rounded-circle bg-primary font-size-10">${contact.name[0]}</span>`;
     const msgHTML = `
         <li id="contacts-id-${contact.user_id}" data-ids='${contact.user_id}' onclick="contactClickEvent(this)">
@@ -547,8 +547,8 @@ socket.on("contactClickEvent", ({ contacts }) => {
       var contactLocation = contacts.user_id.location;
       var contactStatus = contacts.user_id.status;
       var contactId = contacts.user_id._id;
-      var contactImg = contactProfile = contacts.user_id.profile != undefined && contacts.user_id.is_profile != 0 ? `assets/images/users/${contacts.user_id.profile}` : dummyImage;
-      var contactReceiverImg = contacts.user_id.bg_image != undefined ? `assets/images/small/${contacts.user_id.bg_image}` : dummyImage;
+      var contactImg = contactProfile = contacts.user_id.profile != undefined && contacts.user_id.is_profile != 0 ? `${contacts.user_id.profile}` : dummyImage;
+      var contactReceiverImg = contacts.user_id.bg_image != undefined ? `assets/images/small/` : dummyImage;
       document.querySelector(".contact_addbtn").style.display = "none";
       document.querySelector("#contact_name_edit").style.display = "block";
       var contactSeen = contacts.user_id.is_lastseen;
@@ -558,8 +558,9 @@ socket.on("contactClickEvent", ({ contacts }) => {
     }else{
       var contactLocation = contacts.location;
       var contactId = contacts._id;
-      var contactImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `assets/images/users/${contacts.profile}` : dummyImage;
-      var contactReceiverImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `assets/images/small/${contacts.user_id.bg_image}` : dummyImage;
+      var contactImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `${contacts.profile}` : dummyImage;
+      var contactReceiverImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `assets/images/small/` : dummyImage;
+      //assets/images/small/${contacts.user_id.bg_image}
       document.querySelector(".contact_addbtn").style.display = "block";
       document.querySelector("#contact_name_edit").style.display = "none";
       document.getElementById("contact_email").value = contacts.email;
@@ -1039,7 +1040,7 @@ socket.on("get_msg",function ({flag,id, message, sender_id, receiver_id, receive
         }
 
         if (document.getElementById("security-notificationswitch").checked == true) {
-          const receiver_Image = profile ? `assets/images/users/${profile}` : dummyImage;
+          const receiver_Image = profile ? `${profile}` : dummyImage;
           requestNotificationPermissions();
           var instance = new Notification(userName, {
             body: message,
@@ -1565,7 +1566,7 @@ function contact_msg(profile,name,btn){
   <div class="contacts_msg">
     <div class="d-flex align-items-center">
       <div class="chat-user-img align-self-center me-2 ms-0">
-        <img src="assets/images/users/${profile}" class="rounded-circle avatar-xs" alt="">
+        <img src="${profile}" class="rounded-circle avatar-xs" alt="">
       </div>
       <div class="overflow-hidden">
         <p class="text-truncate mb-0 contactNames fw-bold fs-6">${name}</p>
@@ -2388,7 +2389,7 @@ function direcetList(ids,name,user_name,email,location,favourite,profile,unread,
   var fcontactName = name ? name : user_name;
   if (document.getElementById("contact-id-" + ids) == null) {
     if (profile != undefined && profile) {
-      isUserProfile = `<img src="assets/images/users/${is_profile == 1 ? profile:"user-dummy-img.jpg"}" class="rounded-circle avatar-xs" alt="">`;
+      isUserProfile = `<img src="${is_profile == 1 ? profile:"user-dummy-img.jpg"}" class="rounded-circle avatar-xs" alt="">`;
     } else {
       isUserProfile = `<div class="avatar-xs"><span class="avatar-title rounded-circle bg-primary text-white"><span class="username">${fcontactName[0]}</span><span class="user-status"></span></span></div>`;
     }
@@ -2515,7 +2516,7 @@ socket.on("profileUpdate", function ({ userid, profile, is_profile }) {
   if (document.getElementById("contact-id-" + userid) != null) {
     setTimeout(() => {
       document.getElementById("contact-id-" + userid).querySelector("a").click();
-      document.getElementById("contact-id-" + userid).querySelector(".chat-user-img").innerHTML = `<img src="assets/images/users/${is_profile == 1 ? profile:"user-dummy-img.jpg"}" class="rounded-circle avatar-xs" alt=""><span class="user-status"></span>`;
+      document.getElementById("contact-id-" + userid).querySelector(".chat-user-img").innerHTML = `<img src="${is_profile == 1 ? profile:"user-dummy-img.jpg"}" class="rounded-circle avatar-xs" alt=""><span class="user-status"></span>`;
     }, 200);
   }
 });
@@ -3405,7 +3406,7 @@ socket.on("ringcalling", (receiverId, userId, name, image, ctype) => {
     });
     var userProfile = document.querySelectorAll(".sender_profile");
     Array.from(userProfile).forEach((element, index) => {
-      element.src = `assets/images/users/${image}`;
+      element.src = `${image}`;
     });
 
     document.getElementById(`callicon`).innerHTML = ' <i class="ri-vidicon-fill"></i>';
@@ -3755,7 +3756,7 @@ socket.on("callsLists", ({ callList }) => {
     var cratedTime = datewise + ", " +hour + ":" + minute + " " + ampm;
     var callIcon = calls.type == "video"?'<button type="button" class="btn btn-link p-0 font-size-20 stretched-link" data-bs-toggle="modal" data-bs-target=".videocallModal"><i class="bx bx-video align-middle"></i></button>':
                   '<button type="button" class="btn btn-link p-0 font-size-20 stretched-link" data-bs-toggle="modal" data-bs-target=".audiocallModal"><i class="bx bxs-phone-call align-middle"></i></button>'
-    var profile = calls.userProfile[0] ? `<img src="assets/images/users/${calls.userProfile[0]}" class="rounded-circle avatar-xs" alt="">` : `<div class="avatar-xs"><span class="avatar-title rounded-circle bg-danger text-white">${calls.userName[0][0]}</span></div>`; 
+    var profile = calls.userProfile[0] ? `<img src="${calls.userProfile[0]}" class="rounded-circle avatar-xs" alt="">` : `<div class="avatar-xs"><span class="avatar-title rounded-circle bg-danger text-white">${calls.userName[0][0]}</span></div>`; 
     var icon_color = calls.is_type == 0 ? `text-success`:`text-danger`;
     var call_icon = calls.sender_id == userId ? `ri-arrow-right-up-fill ${icon_color} align-bottom`:`ri-arrow-left-down-fill ${icon_color} align-bottom`;
     var callsInfo =                        
