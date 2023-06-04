@@ -84,7 +84,7 @@ socket.on("user-disconnected", (socket_id) => {
 socket.emit("currentUserInfo", userId);
 socket.on("currentInfo", ({ user }) => {
   profile = user.profile;
-  var profile_img = user.profile ? user.profile : "assets/images/users/avatar-1.jpg";
+  var profile_img = user.profile ? user.profile : "avatar-1.jpg";
   var profile_bg_img = user.bg_image ? user.bg_image : "img-1.jpg";
   themesColor = user.theme_color;
   themeImage = user.theme_image;
@@ -104,7 +104,7 @@ socket.on("currentInfo", ({ user }) => {
   // Current user profile set
   var userProfile = document.querySelectorAll(".user-profile-image");
   Array.from(userProfile).forEach((element, index) => {
-    element.src = `${profile_img}`;
+    element.src = `assets/images/users/${profile_img}`;
   });
 
   // Current background image set
@@ -122,7 +122,7 @@ socket.on("currentInfo", ({ user }) => {
   // Current user location set
   var userLocation = document.querySelectorAll(".user_location");
   Array.from(userLocation).forEach((element, index) => {
-    element.innerHTML = 'Việt Nam';
+    element.innerHTML = user.location;
   });
 
   // current lastseen set
@@ -325,7 +325,7 @@ socket.on("Success", ({ msg }) => {
 socket.on("singleContact", ({ contacts }) => {
   var userNameCharAt = "";
   var isSortAlphabets = [];
-  var profile = contacts.user_id.profile ? `<img src="${contacts.user_id.profile}" class="img-fluid rounded-circle" alt="">` : `<span class="avatar-title rounded-circle bg-primary font-size-10">${contacts.name[0]}</span>`;
+  var profile = contacts.user_id.profile ? `<img src="assets/images/users/${contacts.user_id.profile}" class="img-fluid rounded-circle" alt="">` : `<span class="avatar-title rounded-circle bg-primary font-size-10">${contacts.name[0]}</span>`;
   const msgHTML = `
         <li id="contacts-id-${contacts.user_id._id}" data-ids='${contacts.user_id._id}' onclick="contactClickEvent(this)">
               <div class="d-flex align-items-center">
@@ -351,7 +351,7 @@ socket.on("singleContact", ({ contacts }) => {
               </div>
           </li>
       `;
-    
+
       if(document.getElementById(`contact-sort-${contacts.name.charAt(0)}`) == null || document.getElementById(`contact-sort-${contacts.name.charAt(0)}`).getElementsByTagName('li').length == 0){
         var contact_sort = `<div class="contact-list-title" id="contact-of-${contacts.name.charAt(0)}">${contacts.name.charAt(0).toUpperCase()}</div>`
       }
@@ -363,8 +363,8 @@ socket.on("singleContact", ({ contacts }) => {
                       }
                       document.getElementById("contact-sort-" + contacts.name.charAt(0).toUpperCase()).innerHTML = document.getElementById("contact-sort-" + contacts.name.charAt(0).toUpperCase()).innerHTML + msgHTML;
                       userNameCharAt = contacts.name.charAt(0);
-              +"</ul></div></div>";       
-          
+              +"</ul></div></div>";
+
   if(document.querySelector("#contact-id-" + contacts.user_id._id + " .contactNames") != null){
     document.querySelector("#contact-id-" + contacts.user_id._id + " .contactNames").innerHTML = contacts.name;
     document.querySelector("#contact-id-" + contacts.user_id._id + " .contactNames").innerHTML = contacts.name;
@@ -380,7 +380,7 @@ socket.on("singleContact", ({ contacts }) => {
   <li id="forward-contact-${contacts.user_id}">
   <div class="d-flex align-items-center">
             <div class="flex-grow-1">
-                <h5 class="font-size-14 m-0">${contacts.name}</h5>                        
+                <h5 class="font-size-14 m-0">${contacts.name}</h5>
             </div>
             <div class="flex-shrink-0">
                 <button type="button" class="btn btn-sm btn-primary" id="${contacts.user_id}" onclick="forwardMsgSend(this)">Send</button>
@@ -429,7 +429,7 @@ socket.on("contactsLists", ({ contacts }) => {
 
     //-------------------- Contact List ----------------------//
     var profile = contact.profile
-      ? `<img src="${contact.profile}" class="img-fluid rounded-circle" alt="" style="aspect-ratio:1;object-fit:cover">`
+      ? `<img src="assets/images/users/${contact.profile}" class="img-fluid rounded-circle" alt="" style="aspect-ratio:1;object-fit:cover">`
       : `<span class="avatar-title rounded-circle bg-primary font-size-10">${contact.name[0]}</span>`;
     const msgHTML = `
         <li id="contacts-id-${contact.user_id}" data-ids='${contact.user_id}' onclick="contactClickEvent(this)">
@@ -471,7 +471,7 @@ socket.on("contactsLists", ({ contacts }) => {
       <li id="forward-contact-${contact.user_id}">
       <div class="d-flex align-items-center">
                 <div class="flex-grow-1">
-                    <h5 class="font-size-14 m-0">${contact.name}</h5>                        
+                    <h5 class="font-size-14 m-0">${contact.name}</h5>
                 </div>
                 <div class="flex-shrink-0">
                     <button type="button" class="btn btn-sm btn-primary" id="${contact.user_id}" onclick="forwardMsgSend(this)">Send</button>
@@ -528,9 +528,9 @@ function contactClickEvent(data) {
   var contactId = receiverId = data.getAttribute("data-ids");
   socket.emit("userClick", { receiverId, userId, startm });
   socket.emit("userStatus", { id:contactId });
-  document.querySelector('.common_groups').innerHTML = '';  
+  document.querySelector('.common_groups').innerHTML = '';
   document.querySelector(".typing_msg").innerHTML = '';
-  document.querySelector(".user-own-img").classList.remove("online");  
+  document.querySelector(".user-own-img").classList.remove("online");
 }
 
 //------------------- Click Wise Contact Data Get --------------------------------//
@@ -547,8 +547,8 @@ socket.on("contactClickEvent", ({ contacts }) => {
       var contactLocation = contacts.user_id.location;
       var contactStatus = contacts.user_id.status;
       var contactId = contacts.user_id._id;
-      var contactImg = contactProfile = contacts.user_id.profile != undefined && contacts.user_id.is_profile != 0 ? `${contacts.user_id.profile}` : dummyImage;
-      var contactReceiverImg = contacts.user_id.bg_image != undefined ? `assets/images/small/` : dummyImage;
+      var contactImg = contactProfile = contacts.user_id.profile != undefined && contacts.user_id.is_profile != 0 ? `assets/images/users/${contacts.user_id.profile}` : dummyImage;
+      var contactReceiverImg = contacts.user_id.bg_image != undefined ? `assets/images/small/${contacts.user_id.bg_image}` : dummyImage;
       document.querySelector(".contact_addbtn").style.display = "none";
       document.querySelector("#contact_name_edit").style.display = "block";
       var contactSeen = contacts.user_id.is_lastseen;
@@ -558,9 +558,8 @@ socket.on("contactClickEvent", ({ contacts }) => {
     }else{
       var contactLocation = contacts.location;
       var contactId = contacts._id;
-      var contactImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `${contacts.profile}` : dummyImage;
-      var contactReceiverImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `assets/images/small/` : dummyImage;
-      //assets/images/small/${contacts.user_id.bg_image}
+      var contactImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `assets/images/users/${contacts.profile}` : dummyImage;
+      var contactReceiverImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `assets/images/small/${contacts.user_id.bg_image}` : dummyImage;
       document.querySelector(".contact_addbtn").style.display = "block";
       document.querySelector("#contact_name_edit").style.display = "none";
       document.getElementById("contact_email").value = contacts.email;
@@ -576,7 +575,7 @@ socket.on("contactClickEvent", ({ contacts }) => {
     document.querySelector(".user-profile-sidebar .user-name").innerHTML = contactName;
     document.querySelector(".text-truncate .user-profile-show").innerHTML = contactName;
     document.querySelector(".userEmail").innerHTML = contactEmail;
-    document.querySelector(".userLocation").innerHTML = 'Việt Nam';
+    document.querySelector(".userLocation").innerHTML = contactLocation;
     document.querySelector(".user-own-img .avatar-sm").setAttribute("src",contactImg);
     document.querySelector(".user-profile-sidebar .profile-img").setAttribute("src", contactReceiverImg);
     document.querySelector(".audiocallModal .img-thumbnail").setAttribute("src", contactImg);
@@ -716,7 +715,7 @@ var userChatId = 1;
 
 function scrollToBottom(id) {
   var simpleBar = document.getElementById(id).querySelector("#chat-conversation .simplebar-content-wrapper");
-  var offsetHeight = document.getElementsByClassName("chat-conversation-list")[0] ? 
+  var offsetHeight = document.getElementsByClassName("chat-conversation-list")[0] ?
                     document.getElementById(id).getElementsByClassName("chat-conversation-list")[0].scrollHeight -
                     window.innerHeight + 250 : 0;
   if (offsetHeight)
@@ -761,7 +760,7 @@ if (chatForm) {
   chatForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    
+
     var chatId = currentChatId;
     var chatInputValue = chatInput.value;
     let file = document.getElementById("attachedfile-input").files[0];
@@ -809,6 +808,7 @@ if (chatForm) {
         fetch("/fileUploads", { method: "POST", body: formData });
         document.querySelector(".file_Upload ").classList.remove("show");
       } else if (image != undefined) {
+        fetch("/imageUploads", { method: "POST", body: imgformData });
         socket.emit("group_msg", {
           message: chatInputValue,
           sender_id: userId,
@@ -820,7 +820,7 @@ if (chatForm) {
           userId: userId,
           flag:flag
         });
-        fetch("/imageUploads", { method: "POST", body: imgformData });
+        // fetch("/imageUploads", { method: "POST", body: imgformData });
         document.querySelector(".file_Upload ").classList.remove("show");
       } else if (audio != undefined) {
         socket.emit("group_msg", {
@@ -853,7 +853,7 @@ if (chatForm) {
               messageId:messageId
             });
             var editMessage = flag == '1' ? "(edited)":flag == '3'? "(Forwarded)":"";
-  
+
             document.querySelector(".msg_" + messageId + " .edit-flag").innerHTML = editMessage;
             document.querySelector(".msg_" + messageId + " .ctext-content").innerHTML = chatInputValue ;
           }
@@ -962,7 +962,7 @@ if (chatForm) {
             }, 3000);
           }
         }
-       
+
       }
     }
     replayId = null;
@@ -987,7 +987,7 @@ socket.on("get_msg_res",function ({ flag, id, message, sender_id, receiver_id, r
     if(receiverId == receiver_id){
       appendMsg(flag,id, message, sender_id, receiver_id, has_dropDown, has_files, has_images, has_audio, createdAt, is_replay, replay_id, location, contacts_id, contact_name, contacts_profile);
     }
-    
+
     if (contactFavourite == 1) {
       let menu = document.getElementById("favourite-users");
       let li = document.getElementById("contact-id-" + receiverId);
@@ -1017,7 +1017,7 @@ socket.on("get_msg",function ({flag,id, message, sender_id, receiver_id, receive
 	else{
 		replyName = userName;
 	}
-    messageIds++;  
+    messageIds++;
     if(contact_name != undefined){
       direcetList(sender_id, contact_name, userName, userEmail, userLocation, 0, profile, 1, is_profile);
     }
@@ -1026,7 +1026,7 @@ socket.on("get_msg",function ({flag,id, message, sender_id, receiver_id, receive
       if (receiverId == sender_id) {
         if ((userId == sender_id && receiverId == receiver_id) || receiverId == sender_id ) {
           var unread = 1;
-          socket.emit("unreadMsgUpdate", { receiverId, unread });          
+          socket.emit("unreadMsgUpdate", { receiverId, unread });
           appendMsg(flag, id, message, sender_id, receiver_id, has_dropDown, has_files, has_images, has_audio, createdAt, is_replay, replay_id, location, contacts_id, contact_name, contacts_profile, contact_email, profile,replyName);
         }
       } else {
@@ -1040,7 +1040,7 @@ socket.on("get_msg",function ({flag,id, message, sender_id, receiver_id, receive
         }
 
         if (document.getElementById("security-notificationswitch").checked == true) {
-          const receiver_Image = profile ? `${profile}` : dummyImage;
+          const receiver_Image = profile ? `assets/images/users/${profile}` : dummyImage;
           requestNotificationPermissions();
           var instance = new Notification(userName, {
             body: message,
@@ -1063,7 +1063,7 @@ function requestNotificationPermissions() {
 var uniqueid = 100;
 var uid = 100;
 function appendMsg(flag,id,message,sender_id,receiver_id,has_dropDown,has_files,has_images,has_audio,createdAt,is_replay,replay_id,location,contacts_id,contact_name,contacts_profile,contact_email,profile,replyName,receiverName) {
-  var msg_class = groupId != null ? "channel-chat" : "users-chat";  
+  var msg_class = groupId != null ? "channel-chat" : "users-chat";
   if (groupId != null) {
     var replayName =  replay_id != undefined && replay_id == userId ? userName : replyName;
   }
@@ -1107,7 +1107,7 @@ function MessageGet(contactMsgs) {
     else{
       var replayMemberName =  isChat.replay_id != undefined && isChat.replay_id == userId ? userName : contact__Name;
     }
-   
+
     const time = new Date(isChat.createdAt);
     var ampm = time.getHours() >= 12 ? "pm" : "am";
     var hour = time.getHours() > 12 ? new Date().getHours() % 12 : new Date().getHours();
@@ -1162,9 +1162,9 @@ function MessageGet(contactMsgs) {
 		$(`#contact-sort-${pd}`).prepend(msgHTML);
     }
 
-	//------------------ Google Map Set ------------------// 
+	//------------------ Google Map Set ------------------//
 	google_map(isChat.location,'#gmaps-markers_'+uniqueid);
-	google_replymap(isChat.is_replay,'#reply_gmaps_'+uid); 
+	google_replymap(isChat.is_replay,'#reply_gmaps_'+uid);
   });
 }
 
@@ -1192,7 +1192,7 @@ socket.on("commonGroupLists", ({ commGroups }) => {
     var cgroup = `
     <li>
         <a href="javascript: void(0);">
-            <div class="d-flex align-items-center">                            
+            <div class="d-flex align-items-center">
                 <div class="flex-shrink-0 avatar-xs me-2">
                     <span class="avatar-title rounded-circle bg-soft-light text-dark">
                         #
@@ -1221,10 +1221,10 @@ function updateLightbox() {
 function getMsg(id,msg,name, contact_id, contactName, has_images, has_files, has_audio, has_dropDown, is_replay, replay_id, replay_name, location,contacts_id,contacts_name, contacts_email, contacts_profile, senderId,flag,voice_recoder,isAlighn) {
   var msgHTML = "";
   var replaymsg = is_replay != undefined || is_replay != null ? is_replay : "";
- 
+
   if (is_replay != null) {
     var replayMsg = reply_msg(replay_name,replaymsg)
-  }  
+  }
   if (has_files != null) {
     var attachedfile = flag != 2 ? attached_file(id,has_files):"";
   }
@@ -1235,7 +1235,7 @@ function getMsg(id,msg,name, contact_id, contactName, has_images, has_files, has
     var attachedfile = flag != 2 ? audio_file(id,has_audio):""
   }
   if (location != null) {
-    var locationMsg = flag != 2 ? `<div id="gmaps-markers_${uniqueid}" class="gmaps"></div>`:"";  
+    var locationMsg = flag != 2 ? `<div id="gmaps-markers_${uniqueid}" class="gmaps"></div>`:"";
   }
   if (contacts_id != null) {
     if(senderId == userId){
@@ -1246,7 +1246,7 @@ function getMsg(id,msg,name, contact_id, contactName, has_images, has_files, has
     }
     var contactsMsg = contact_msg(contacts_profile,contacts_name[0],cntactMsg)
   }
-  
+
   if (msg != null) {
     var editMessage = flag == '1' ? "(edited)":flag == '3'? "(Forwarded)":"";
     if(flag != 2){
@@ -1269,15 +1269,15 @@ function getMsg(id,msg,name, contact_id, contactName, has_images, has_files, has
 }
 
 //==================== Model Contact list search ==================//
-function searchContactOnModal() {    
-  input = document.getElementById("searchContactModal");       
-  filter = input.value.toUpperCase();  
+function searchContactOnModal() {
+  input = document.getElementById("searchContactModal");
+  filter = input.value.toUpperCase();
   list = document.querySelector(".contact-modal-list");
   li = list.querySelectorAll(".mt-3 li");
   div = list.querySelectorAll(".mt-3 .contact-list-title");
-  
-  for (j = 0; j < div.length; j++){             
-    var contactTitle = div[j];               
+
+  for (j = 0; j < div.length; j++){
+    var contactTitle = div[j];
     txtValue = contactTitle.innerText;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
       div[j].style.display = "";
@@ -1285,16 +1285,16 @@ function searchContactOnModal() {
       div[j].style.display = "none";
     }
   }
-       
-  for (i = 0; i < li.length; i++){           
-    contactName = li[i];            
-    txtValue = contactName.querySelector(".form-check-label").innerText;                   
+
+  for (i = 0; i < li.length; i++){
+    contactName = li[i];
+    txtValue = contactName.querySelector(".form-check-label").innerText;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
       li[i].style.display = "";
     } else {
       li[i].style.display = "none";
     }
-    }     
+    }
   }
 
 //==================== Attached Files Upload ===========================//
@@ -1566,7 +1566,7 @@ function contact_msg(profile,name,btn){
   <div class="contacts_msg">
     <div class="d-flex align-items-center">
       <div class="chat-user-img align-self-center me-2 ms-0">
-        <img src="${profile}" class="rounded-circle avatar-xs" alt="">
+        <img src="assets/images/users/${profile}" class="rounded-circle avatar-xs" alt="">
       </div>
       <div class="overflow-hidden">
         <p class="text-truncate mb-0 contactNames fw-bold fs-6">${name}</p>
@@ -1836,7 +1836,7 @@ function contactNameChange() {
 		}
 		}
 		document.getElementById(`contact-sort-${after.toUpperCase()}`).innerHTML += temp;
-	}  
+	}
 	else{
 		var temp = document.getElementById('contacts-id-' + receiverId).outerHTML;
 		document.getElementById(`contact-sort-${before.toUpperCase()}`).querySelector(`#contacts-id-${receiverId}`).remove();
@@ -1980,12 +1980,12 @@ function contactDelete(contact_id, receiverId) {
       // Forward Member list delete
       document.getElementById('fcontacts-of-' + contactFirst) ? document.getElementById('fcontacts-of-' + contactFirst).remove():"";
       document.getElementById('fcontacts-sort-' + contactFirst)? document.getElementById('fcontacts-sort-' + contactFirst).remove():'';
-      
+
 			setTimeout(() => {
 				delete_user_conversation();
-			}, 200); 
+			}, 200);
 		}
-	  }); 
+	  });
 }
 
 //============================= Single All Message Delete ==============================//
@@ -2044,7 +2044,7 @@ function CloseChat(){
 }
 
 //========================= Reply Message ===========================//
-function singleMessageReply(message) {  
+function singleMessageReply(message) {
   replayId = document.querySelector(".msg_" + message.id).getAttribute("id");
   var attachedFiles = document.querySelector(".msg_" + message.id+ " .attached-file") ? document.querySelector(".msg_" + message.id+ " .attached-file").classList.contains("attached-file"):'';
   var imageFiles = document.querySelector(".msg_" + message.id+ " .message-img") ? document.querySelector(".msg_" + message.id+ " .message-img").classList.contains("message-img"):'';
@@ -2092,7 +2092,7 @@ function singleMessageReply(message) {
             </div>
         </div>
     </div>`;
-    
+
   }
   else if(document.querySelector(".msg_" + message.id + " .ctext-content")){
     copy_text = document.querySelector(".msg_" + message.id + " .ctext-content").innerText;
@@ -2100,10 +2100,10 @@ function singleMessageReply(message) {
   }
 
   if (groupId != null) {
-    socket.emit("replyId_Group", { groupId, replayId, userId });    
-  } 
+    socket.emit("replyId_Group", { groupId, replayId, userId });
+  }
   else {
-    socket.emit("reply_Contact", { receiverId, replayId, userId });    
+    socket.emit("reply_Contact", { receiverId, replayId, userId });
   }
   ReplayMsg = copy_text;
 }
@@ -2134,7 +2134,7 @@ socket.on("reply_Contact", function ({ contact }) {
   document.querySelector(".forward_msg .conversation-name").innerHTML = contact.name;
 });
 
-//======================== Google Chat Map Set ==============================// 
+//======================== Google Chat Map Set ==============================//
 function google_map(location,map_id){
   var location = location ? location.split("_"):'';
   if(location){
@@ -2228,10 +2228,10 @@ function singleMessageForward(message) {
 
   replayId = document.querySelector(".msg_" + message.id).getAttribute("id");
   if (groupId != null) {
-    socket.emit("replyId_Group", { groupId, replayId, userId });    
-  } 
+    socket.emit("replyId_Group", { groupId, replayId, userId });
+  }
   else {
-    socket.emit("reply_Contact", { receiverId, replayId, userId });    
+    socket.emit("reply_Contact", { receiverId, replayId, userId });
   }
 }
 
@@ -2368,7 +2368,7 @@ setTimeout(() => {
         socket.emit("userClick", { receiverId, userId, startm });
         socket.emit("groupClick", { groupId, userId, startm });
         startm += 10;
-      } 
+      }
     }
   });
 }, 1000);
@@ -2389,7 +2389,7 @@ function direcetList(ids,name,user_name,email,location,favourite,profile,unread,
   var fcontactName = name ? name : user_name;
   if (document.getElementById("contact-id-" + ids) == null) {
     if (profile != undefined && profile) {
-      isUserProfile = `<img src="${is_profile == 1 ? profile:"user-dummy-img.jpg"}" class="rounded-circle avatar-xs" alt="">`;
+      isUserProfile = `<img src="assets/images/users/${is_profile == 1 ? profile:"user-dummy-img.jpg"}" class="rounded-circle avatar-xs" alt="">`;
     } else {
       isUserProfile = `<div class="avatar-xs"><span class="avatar-title rounded-circle bg-primary text-white"><span class="username">${fcontactName[0]}</span><span class="user-status"></span></span></div>`;
     }
@@ -2435,7 +2435,7 @@ function directClickEvent(data) {
   var directcontactId = receiverId = data.getAttribute("data-ids");
   currentChatId = "users-chat";
   updateSelectedChat(userChat);
-  document.getElementById("searchChatMessage").value = "";  
+  document.getElementById("searchChatMessage").value = "";
   document.querySelector(".typing_msg").innerHTML = '';
   document.querySelector(".user-profile-sidebar .users_status").innerHTML = '';
   document.querySelector(".user-own-img").classList.remove("online");
@@ -2461,7 +2461,7 @@ socket.on("userStatus",function ({id, status}) {
   var hour = time.getHours() > 12 ? new Date().getHours() % 12 : new Date().getHours();
   var minute = time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes();
   var cratedTime = hour + ":" + minute + " " + ampm;
-  
+
   if (datewise == todaydate) {
     var lastSeen = "last seen today at "+cratedTime
   } else if (datewise == yesterdaydate) {
@@ -2516,7 +2516,7 @@ socket.on("profileUpdate", function ({ userid, profile, is_profile }) {
   if (document.getElementById("contact-id-" + userid) != null) {
     setTimeout(() => {
       document.getElementById("contact-id-" + userid).querySelector("a").click();
-      document.getElementById("contact-id-" + userid).querySelector(".chat-user-img").innerHTML = `<img src="${is_profile == 1 ? profile:"user-dummy-img.jpg"}" class="rounded-circle avatar-xs" alt=""><span class="user-status"></span>`;
+      document.getElementById("contact-id-" + userid).querySelector(".chat-user-img").innerHTML = `<img src="assets/images/users/${is_profile == 1 ? profile:"user-dummy-img.jpg"}" class="rounded-circle avatar-xs" alt=""><span class="user-status"></span>`;
     }, 200);
   }
 });
@@ -2766,7 +2766,7 @@ function groupClickEvent(data) {
   groupId = data.getAttribute("data-id");
   socket.emit("groupClick", { groupId, userId, startm });
   document.querySelector("#contact_name_edit").style.display = "block";
-  document.querySelector(".receiver-info").style.display = "none"; 
+  document.querySelector(".receiver-info").style.display = "none";
   setTimeout(() => {
     scrollToBottom("channel-chat");
   }, 300);
@@ -2872,7 +2872,7 @@ socket.on("groupDetail", ({ groupMember, groupId }) => {
     const online_users = `
 		<li id="contact_list_${member.user_id}">
 			<a href="javascript: void(0);">
-				<div class="d-flex align-items-center">                            
+				<div class="d-flex align-items-center">
 					<div class="flex-shrink-0 avatar-xs me-2">
 						<span class="avatar-title rounded-circle bg-soft-light text-dark">#</span>
 					</div>
@@ -3085,15 +3085,15 @@ socket.on("group_delete", function ({ id }) {
 
 //===================== Group Search ======================//
 // Search User
-function searchUser() {    
-  input = document.getElementById("serachChatUser");      
-  filter = input.value.toUpperCase();  
-  ul = document.querySelector(".chat-room-list");    
-  li = ul.getElementsByTagName("li");     
+function searchUser() {
+  input = document.getElementById("serachChatUser");
+  filter = input.value.toUpperCase();
+  ul = document.querySelector(".chat-room-list");
+  li = ul.getElementsByTagName("li");
   for (i = 0; i < li.length; i++) {
-    var item = li[i];  
+    var item = li[i];
     var searchList = item.querySelector('p') != null ? item.querySelector('p') :'';
-    var txtValue = searchList.innerText != undefined ? searchList.innerText :'';     
+    var txtValue = searchList.innerText != undefined ? searchList.innerText :'';
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
       li[i].style.display = "";
     } else {
@@ -3215,7 +3215,7 @@ async function startCamera() {
       </div>
     </div>`;
   });
-  
+
   let video = document.querySelector("#view_video");
   let click_button = document.querySelector("#click-photo");
   let canvas = document.querySelector("#canvas");
@@ -3259,7 +3259,7 @@ async function startCamera() {
   }, (error) => {
     toastr.error('Device not found', 'Error');
     document.getElementById('remove-attechedFile').click();
-  }) 
+  })
 
  }
 
@@ -3275,12 +3275,12 @@ function urltoFile(url, filename, mimeType) {
 async function currentLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
+  } else {
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
-} 
+}
 
-function showPosition(position) { 
+function showPosition(position) {
   var location = `${position.coords.latitude}_${position.coords.longitude}`;
   if (groupId != null) {
     socket.emit("group_msg", {
@@ -3391,7 +3391,7 @@ function sendUsername(ctype) {
     type: "store_user"
   })
 }
-//------------ Receiver calling data get ------------------// 
+//------------ Receiver calling data get ------------------//
 socket.on("ringcalling", (receiverId, userId, name, image, ctype) => {
   if (!is_active) {
     cutingphone = false
@@ -3406,7 +3406,7 @@ socket.on("ringcalling", (receiverId, userId, name, image, ctype) => {
     });
     var userProfile = document.querySelectorAll(".sender_profile");
     Array.from(userProfile).forEach((element, index) => {
-      element.src = `${image}`;
+      element.src = `assets/images/users/${image}`;
     });
 
     document.getElementById(`callicon`).innerHTML = ' <i class="ri-vidicon-fill"></i>';
@@ -3541,7 +3541,7 @@ socket.on('cutpeeranswer', () => {
   document.getElementById(`audiotext`).innerHTML = "The person is busy...";
   audioring.pause();
   audioring.currentTime = 0;
-  
+
   endvcall();
   setTimeout(function () {
     busyring.pause();
@@ -3667,7 +3667,7 @@ function sendData(data) {
 //--------------------- Audio Recoder ------------------//
 socket.on('getingonmsgs', (event) => {
   handleSignallingData(JSON.parse(event))
-}) 
+})
 
 // ===== Handle Signalling Data Function =====//
 function handleSignallingData(data) {
@@ -3746,7 +3746,7 @@ function callClickEvent(data) {
 }
 
 socket.on("callsLists", ({ callList }) => {
-  callList.forEach(function(calls,index){  
+  callList.forEach(function(calls,index){
     month_names_short=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     const time = new Date(calls.createdAt);
     var ampm = time.getHours() >= 12 ? "pm" : "am";
@@ -3756,10 +3756,10 @@ socket.on("callsLists", ({ callList }) => {
     var cratedTime = datewise + ", " +hour + ":" + minute + " " + ampm;
     var callIcon = calls.type == "video"?'<button type="button" class="btn btn-link p-0 font-size-20 stretched-link" data-bs-toggle="modal" data-bs-target=".videocallModal"><i class="bx bx-video align-middle"></i></button>':
                   '<button type="button" class="btn btn-link p-0 font-size-20 stretched-link" data-bs-toggle="modal" data-bs-target=".audiocallModal"><i class="bx bxs-phone-call align-middle"></i></button>'
-    var profile = calls.userProfile[0] ? `<img src="${calls.userProfile[0]}" class="rounded-circle avatar-xs" alt="">` : `<div class="avatar-xs"><span class="avatar-title rounded-circle bg-danger text-white">${calls.userName[0][0]}</span></div>`; 
+    var profile = calls.userProfile[0] ? `<img src="assets/images/users/${calls.userProfile[0]}" class="rounded-circle avatar-xs" alt="">` : `<div class="avatar-xs"><span class="avatar-title rounded-circle bg-danger text-white">${calls.userName[0][0]}</span></div>`;
     var icon_color = calls.is_type == 0 ? `text-success`:`text-danger`;
     var call_icon = calls.sender_id == userId ? `ri-arrow-right-up-fill ${icon_color} align-bottom`:`ri-arrow-left-down-fill ${icon_color} align-bottom`;
-    var callsInfo =                        
+    var callsInfo =
         `<li id="calls-id-${calls._id}" >
           <div class="d-flex align-items-center">
           <div class="chat-user-img flex-shrink-0 me-2">
@@ -3782,7 +3782,7 @@ socket.on("callsLists", ({ callList }) => {
           </div>
         </li>`
         document.getElementById("callList").innerHTML += callsInfo;
-      });  
+      });
 });
 
 //------------------ Voice Recoder ------------------//
@@ -3833,9 +3833,9 @@ class VoiceRecorder {
 	handleError(error) {
 		console.log("navigator.getUserMedia error: ", error)
 	}
-	
+
 	onMediaRecorderDataAvailable(e) { this.chunks.push(e.data) }
-	onMediaRecorderStop(e) { 
+	onMediaRecorderStop(e) {
 			const blob = new Blob(this.chunks, { 'type': 'audio/ogg; codecs=opus' })
 			const audioURL = window.URL.createObjectURL(blob)
 			this.chunks = []
@@ -3852,7 +3852,7 @@ class VoiceRecorder {
 		if (this.isRecording) return
 		this.isRecording = true
 		this.startRef.style.display = 'none'
-		this.stopRef.style.display = 'block'  
+		this.stopRef.style.display = 'block'
 		document.querySelector('#chatFrmSubmit').style.display = "none";
 		navigator.mediaDevices
 			.getUserMedia(this.constraints)
@@ -3871,7 +3871,7 @@ class VoiceRecorder {
 		this.recorderRef.pause()
 		this.mediaRecorder.stop()
 	}
-	
+
 }
 function voiceRecoderFile(url, filename, mimeType) {
   return (fetch(url)

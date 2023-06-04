@@ -208,87 +208,199 @@ io.on("connection", (socket) => {
       profile,
       is_profile,
     }) {
-      const contact_message = new Message({
-        message,
-        sender_id,
-        receiver_id,
-        has_dropDown,
-        has_files,
-        has_images,
-        has_audio,
-        is_replay,
-        replay_id,
-        location,
-        voice_recoder,
-      });
-      var contact_list = await Contact.findOne({
-        user_id: sender_id,
-        created_by: receiver_id,
-      });
-      contact_message.save().then(async () => {
-        id = contact_message._id;
-        createdAt = contact_message.createdAt;
-        has_dropDown = contact_message.has_dropDown;
-        location = contact_message.location;
-        let myid;
-        myid = receiver_id;
-        if (contact_list != null) {
-          contact_name = contact_list.name;
-        } else {
-          contact_name = "";
-        }
-        contactsUserIdGet(receiver_id, userId).then((contact) => {
-          receiver_name = contact.name;
-          receiver_profile = contact.user_id
-            ? contact.user_id.profile
-            : contact.profile;
-          io.to(socket.id).emit("get_msg_res", {
-            id,
-            message,
-            sender_id,
-            receiver_id,
-            receiver_name,
-            receiver_profile,
-            has_dropDown,
-            has_files,
-            has_images,
-            has_audio,
-            createdAt,
-            is_replay,
-            replay_id,
-            location,
-            is_profile,
-          });
-          for (const key in users) {
-            if (receiver_id == users[key]) {
-              myid = sender_id;
-              io.to(key).emit("get_msg", {
-                id,
-                message,
-                sender_id,
-                receiver_id,
-                receiver_name,
-                receiver_profile,
-                has_dropDown,
-                has_files,
-                has_images,
-                has_audio,
-                createdAt,
-                is_replay,
-                replay_id,
-                location,
-                contact_name,
-                userEmail,
-                userId,
-                userName,
-                userLocation,
-                profile,
-                is_profile,
-              });
-            }
+      if (has_images != null) {
+        app.post("/imageUploads", (req, res) => {
+          if (req.files) {
+            const targetFile = req.files.file;
+            let uploadDir = path.join(
+              __dirname,
+              "/public/assets/images/image",
+              req.body.fnm
+            );
+            targetFile.mv(uploadDir, (err) => {
+              if (err) return res.status(500).send(err);
+              cloudinary.uploader.upload(
+                uploadDir,
+                { folder: "images/imageMessage" },
+                async (error, result) => {
+                  if (error) {
+                    res.status(500).send("Image upload failed.");
+                    console.log(error);
+                  } else {
+                    const image_url = result.secure_url;
+                    console.log(
+                      `Image uploaded successfully. URL: ${image_url}`
+                    );
+                    const contact_message = new Message({
+                      message,
+                      sender_id,
+                      receiver_id,
+                      has_dropDown,
+                      has_files,
+                      has_images: image_url,
+                      has_audio,
+                      is_replay,
+                      replay_id,
+                      location,
+                      voice_recoder,
+                    });
+                    var contact_list = await Contact.findOne({
+                      user_id: sender_id,
+                      created_by: receiver_id,
+                    });
+                    contact_message.save().then(async () => {
+                      id = contact_message._id;
+                      createdAt = contact_message.createdAt;
+                      has_dropDown = contact_message.has_dropDown;
+                      location = contact_message.location;
+                      let myid;
+                      myid = receiver_id;
+                      if (contact_list != null) {
+                        contact_name = contact_list.name;
+                      } else {
+                        contact_name = "";
+                      }
+                      contactsUserIdGet(receiver_id, userId).then((contact) => {
+                        receiver_name = contact.name;
+                        receiver_profile = contact.user_id
+                          ? contact.user_id.profile
+                          : contact.profile;
+                        io.to(socket.id).emit("get_msg_res", {
+                          id,
+                          message,
+                          sender_id,
+                          receiver_id,
+                          receiver_name,
+                          receiver_profile,
+                          has_dropDown,
+                          has_files,
+                          has_images: image_url,
+                          has_audio,
+                          createdAt,
+                          is_replay,
+                          replay_id,
+                          location,
+                          is_profile,
+                        });
+                        for (const key in users) {
+                          if (receiver_id == users[key]) {
+                            myid = sender_id;
+                            io.to(key).emit("get_msg", {
+                              id,
+                              message,
+                              sender_id,
+                              receiver_id,
+                              receiver_name,
+                              receiver_profile,
+                              has_dropDown,
+                              has_files,
+                              has_images: image_url,
+                              has_audio,
+                              createdAt,
+                              is_replay,
+                              replay_id,
+                              location,
+                              contact_name,
+                              userEmail,
+                              userId,
+                              userName,
+                              userLocation,
+                              profile,
+                              is_profile,
+                            });
+                          }
+                        }
+                      });
+                    });
+                  }
+                }
+              );
+            });
           }
         });
-      });
+      } else {
+        const contact_message = new Message({
+          message,
+          sender_id,
+          receiver_id,
+          has_dropDown,
+          has_files,
+          has_images,
+          has_audio,
+          is_replay,
+          replay_id,
+          location,
+          voice_recoder,
+        });
+        var contact_list = await Contact.findOne({
+          user_id: sender_id,
+          created_by: receiver_id,
+        });
+        contact_message.save().then(async () => {
+          id = contact_message._id;
+          createdAt = contact_message.createdAt;
+          has_dropDown = contact_message.has_dropDown;
+          location = contact_message.location;
+          let myid;
+          myid = receiver_id;
+          if (contact_list != null) {
+            contact_name = contact_list.name;
+          } else {
+            contact_name = "";
+          }
+          contactsUserIdGet(receiver_id, userId).then((contact) => {
+            receiver_name = contact.name;
+            receiver_profile = contact.user_id
+              ? contact.user_id.profile
+              : contact.profile;
+            io.to(socket.id).emit("get_msg_res", {
+              id,
+              message,
+              sender_id,
+              receiver_id,
+              receiver_name,
+              receiver_profile,
+              has_dropDown,
+              has_files,
+              has_images,
+              has_audio,
+              createdAt,
+              is_replay,
+              replay_id,
+              location,
+              is_profile,
+            });
+            for (const key in users) {
+              if (receiver_id == users[key]) {
+                myid = sender_id;
+                io.to(key).emit("get_msg", {
+                  id,
+                  message,
+                  sender_id,
+                  receiver_id,
+                  receiver_name,
+                  receiver_profile,
+                  has_dropDown,
+                  has_files,
+                  has_images,
+                  has_audio,
+                  createdAt,
+                  is_replay,
+                  replay_id,
+                  location,
+                  contact_name,
+                  userEmail,
+                  userId,
+                  userName,
+                  userLocation,
+                  profile,
+                  is_profile,
+                });
+              }
+            }
+          });
+        });
+      }
     }
   );
 
@@ -468,35 +580,20 @@ io.on("connection", (socket) => {
   });
 
   // Images File Upload
-  app.post("/imageUploads", (req, res) => {
-    if (req.files) {
-      const targetFile = req.files.file;
-      let uploadDir = path.join(
-        __dirname,
-        "/public/assets/images/image",
-        req.body.fnm
-      );
-      targetFile.mv(uploadDir, (err) => {
-        if (err) return res.status(500).send(err);
-        cloudinary.uploader.upload(
-          uploadDir,
-          { folder: "images/userProfile" },
-          (error, result) => {
-            if (error) {
-              res.status(500).send("Image upload failed.");
-              console.log(error);
-            } else {
-              const profile = result.secure_url;
-              console.log(`Image uploaded successfully. URL: ${profile}`);
-            }
-          }
-        );
-        res.send("File uploaded!");
-      });
-    } else {
-      console.log("File uploaded fail!");
-    }
-  });
+  // app.post("/imageUploads", (req, res) => {
+  //   if (req.files) {
+  //     const targetFile = req.files.file;
+  //     let uploadDir = path.join(
+  //       __dirname,
+  //       "/public/assets/images/image",
+  //       req.body.fnm
+  //     );
+  //     targetFile.mv(uploadDir, (err) => {
+  //       if (err) return res.status(500).send(err);
+  //       console.log("Image uploaded!");
+  //     });
+  //   }
+  // });
 
   // Audio File Upload
   app.post("/audioUploads", (req, res) => {
@@ -546,7 +643,7 @@ io.on("connection", (socket) => {
         res.send("File uploaded!");
       });
     } else {
-      console.log("File uploaded!");
+      console.log("Failed!");
     }
   });
 

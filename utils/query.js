@@ -4,15 +4,15 @@ const Message = require("../models/messageModel");
 const Group = require("../models/groupModel");
 const GroupMember = require("../models/groupMemberModel");
 const GroupMessage = require("../models/groupMessageModel");
-const CallLog = require('../models/callLogModel');
+const CallLog = require("../models/callLogModel");
 
 /**
  * Contacts Section
  */
 // Current Info
 function current_user_data(id) {
-    const user = User.findById(id);
-    return user;
+  const user = User.findById(id);
+  return user;
 }
 
 // user last seend update
@@ -42,41 +42,44 @@ function userStatusId(id) {
 //--------------- Contact Create -----------------//
 // Email Match
 function UserEmailMatch(email, created_by) {
-    const contact = User.findOne({ email: email });
-    return contact;
+  const contact = User.findOne({ email: email });
+  return contact;
 }
 
 // Contact Match
 function contactEmail(email, created_by) {
-    const contact = Contact.findOne({ email: email, created_by: created_by });
-    return contact;
+  const contact = Contact.findOne({ email: email, created_by: created_by });
+  return contact;
 }
 
 // Contact id wise data get
 function contactsIdGet(id) {
-    const contact = Contact.findById(id).populate('user_id');
-    return contact;
+  const contact = Contact.findById(id).populate("user_id");
+  return contact;
 }
 
 // Contact user id wise data get
-async function contactsUserIdGet(id,userId) {
-  var fm = await Contact.findOne({user_id:id,created_by:userId}).populate('user_id');  
-  if(!fm){
+async function contactsUserIdGet(id, userId) {
+  var fm = await Contact.findOne({ user_id: id, created_by: userId }).populate(
+    "user_id"
+  );
+  if (!fm) {
     fm = await User.findById(id);
   }
   return fm;
 }
 
 // Receiver data get
-async function receiverDataGet(id,userId) {
-  var receiverData = await Contact.findOne({user_id:id,created_by:userId});  
+async function receiverDataGet(id, userId) {
+  var receiverData = await Contact.findOne({ user_id: id, created_by: userId });
   return receiverData;
 }
 
-
 // Contact user id with current user id wise data get
-function currentContactsWithUserId(id,userId) {
-  const contact = Contact.findOne({user_id:id,created_by:userId}).populate('user_id');
+function currentContactsWithUserId(id, userId) {
+  const contact = Contact.findOne({ user_id: id, created_by: userId }).populate(
+    "user_id"
+  );
   return contact;
 }
 
@@ -148,7 +151,7 @@ async function contactsGet(userId) {
     },
   ]);
   const user2 = await User.find({});
-  const user3 = user2.map(user => {
+  const user3 = user2.map((user) => {
     return {
       uid: userId,
       name: user.name,
@@ -166,7 +169,7 @@ async function contactsGet(userId) {
       created_at: "",
     };
   });
-  const user4 = user3.filter(user => {
+  const user4 = user3.filter((user) => {
     return user.uid != user.user_id;
   });
   return user4;
@@ -180,7 +183,10 @@ async function messageUpdate(id, message, flag) {
 
 // Group Message Update
 async function messageGroupUpdate(id, message, flag) {
-  const message_update = await GroupMessage.findByIdAndUpdate(id, { message, flag });
+  const message_update = await GroupMessage.findByIdAndUpdate(id, {
+    message,
+    flag,
+  });
   return message_update;
 }
 
@@ -245,13 +251,15 @@ function messageSearchData(name, user_id, receiverId) {
     },
     {
       $match: {
-        $and: [{ $or: [{ receiver_id: receiverId }, { sender_id: receiverId }] }],
+        $and: [
+          { $or: [{ receiver_id: receiverId }, { sender_id: receiverId }] },
+        ],
       },
     },
-    {  
-        $match: {
-          $expr: { $ne: ["$flag", "2"] },
-        },
+    {
+      $match: {
+        $expr: { $ne: ["$flag", "2"] },
+      },
     },
     {
       $match: {
@@ -277,8 +285,8 @@ function messageSearchData(name, user_id, receiverId) {
         profile: "$users.profile",
         contactName: "$contacts.name",
         mcontactProfile: "$user.profile",
-        mcontact_name: '$contact.name',
-        mcontact_email: '$contact.email',
+        mcontact_name: "$contact.name",
+        mcontact_email: "$contact.email",
       },
     },
   ]);
@@ -309,7 +317,12 @@ function contactMessageGet(user_id, receiverId, startm) {
         pipeline: [
           {
             $match: {
-              $expr: { $and: [{$eq: ["$user_id", "$$receiver_id"]},{$eq: ["$created_by", user_id]}] },
+              $expr: {
+                $and: [
+                  { $eq: ["$user_id", "$$receiver_id"] },
+                  { $eq: ["$created_by", user_id] },
+                ],
+              },
             },
           },
         ],
@@ -337,7 +350,12 @@ function contactMessageGet(user_id, receiverId, startm) {
         pipeline: [
           {
             $match: {
-              $expr: { $and: [{$eq: ["$user_id", "$$contacts_id"]},{$eq: ["$created_by", "$$sender_id"]}] },
+              $expr: {
+                $and: [
+                  { $eq: ["$user_id", "$$contacts_id"] },
+                  { $eq: ["$created_by", "$$sender_id"] },
+                ],
+              },
             },
           },
         ],
@@ -346,7 +364,9 @@ function contactMessageGet(user_id, receiverId, startm) {
     },
     {
       $match: {
-        $and: [{ $or: [{ receiver_id: receiverId }, { sender_id: receiverId }] }],
+        $and: [
+          { $or: [{ receiver_id: receiverId }, { sender_id: receiverId }] },
+        ],
       },
     },
     {
@@ -355,7 +375,7 @@ function contactMessageGet(user_id, receiverId, startm) {
       },
     },
     { $sort: { _id: -1 } },
-    {$skip: startm},
+    { $skip: startm },
     { $limit: 10 },
     {
       $project: {
@@ -373,15 +393,15 @@ function contactMessageGet(user_id, receiverId, startm) {
         location: "$location",
         contacts_id: "$contacts_id",
         user_id: "$users._id",
-        voice_recoder:"$voice_recoder",
+        voice_recoder: "$voice_recoder",
         name: "$users.name",
         profile: "$users.profile",
         is_profile: "$users.is_profile",
         contactName: "$contacts.name",
         mcontactProfile: "$user.profile",
-        mcontact_name: '$contact.name',
-        mcontact_email: '$contact.email',
-        flag: '$flag',
+        mcontact_name: "$contact.name",
+        mcontact_email: "$contact.email",
+        flag: "$flag",
       },
     },
   ]);
@@ -399,7 +419,7 @@ function commonGroup(receiverId, userId) {
           {
             $match: {
               $expr: { $eq: ["$_id", { $toObjectId: "$$group_id" }] },
-            }
+            },
           },
         ],
         as: "groups",
@@ -410,12 +430,12 @@ function commonGroup(receiverId, userId) {
     {
       $project: {
         gid: "$group_id",
-        group_name: "$groups.name"
+        group_name: "$groups.name",
       },
     },
   ]);
   return contactList;
-};
+}
 
 // Unread Message Update
 function updateUnreadMsg(receiver_id, unread) {
@@ -427,142 +447,183 @@ function updateUnreadMsg(receiver_id, unread) {
 }
 
 //Contact Delete
-function contactDelete(receiverId,userId) {
-  const contact_delete = Contact.deleteMany({"user_id":receiverId}, {"created_by":userId});
+function contactDelete(receiverId, userId) {
+  const contact_delete = Contact.deleteMany(
+    { user_id: receiverId },
+    { created_by: userId }
+  );
   return contact_delete;
 }
 
 // Contact name edit
 function contactNameUpdate(userId, receiverId, name) {
-  const contact_name_update = Contact.updateOne({"created_by":userId,"user_id":receiverId}, { name });
+  const contact_name_update = Contact.updateOne(
+    { created_by: userId, user_id: receiverId },
+    { name }
+  );
   return contact_name_update;
 }
 
 // All Message Delete
-function allMessageDelete(id,uid) {
-  const message_delete = Message.deleteMany({ $or: [{ $and: [{ receiver_id: id }, { sender_id: uid }] }, { $and: [{ sender_id: id }, { receiver_id: uid }] }] });
+function allMessageDelete(id, uid) {
+  const message_delete = Message.deleteMany({
+    $or: [
+      { $and: [{ receiver_id: id }, { sender_id: uid }] },
+      { $and: [{ sender_id: id }, { receiver_id: uid }] },
+    ],
+  });
   return message_delete;
 }
 
 // Single Message Delete
-function messageDelete(id,flag) {
+function messageDelete(id, flag) {
   const message_delete = Message.findByIdAndUpdate(id, { flag });
   return message_delete;
 }
 
-// Favourite Update 
+// Favourite Update
 function favouriteUpdate(user_id, created_by, is_favourite) {
-  const message_update = Contact.updateOne({"user_id":user_id,"created_by":created_by}, { is_favourite });
+  const message_update = Contact.updateOne(
+    { user_id: user_id, created_by: created_by },
+    { is_favourite }
+  );
   return message_update;
 }
 
-
 /**
- * Single Chat 
+ * Single Chat
  */
 // Direct Contact Get
 function directContactGet(user_id) {
   const messages = Message.aggregate([
-    { $match: {$or:[{ sender_id:user_id},{receiver_id:user_id}] }},
+    { $match: { $or: [{ sender_id: user_id }, { receiver_id: user_id }] } },
     {
-        $group:{
-            _id:{
-                sender_id:{ $cond: {
-                    if: { $lt: ["$sender_id","$receiver_id"]},
-                    then: "$sender_id",
-                    else: "$receiver_id"
-                }},
-                receiver_id:{ $cond: {
-                    if: { $gt: ["$sender_id","$receiver_id"]},
-                    then: "$sender_id",
-                    else: "$receiver_id"
-                }},
+      $group: {
+        _id: {
+          sender_id: {
+            $cond: {
+              if: { $lt: ["$sender_id", "$receiver_id"] },
+              then: "$sender_id",
+              else: "$receiver_id",
             },
-            unread: {$sum: {$cond: [{$and:[{$eq: [ "$receiver_id", user_id ]}, { $eq: [ "$unread", "0" ]}] }, 1, 0 ]} },
+          },
+          receiver_id: {
+            $cond: {
+              if: { $gt: ["$sender_id", "$receiver_id"] },
+              then: "$sender_id",
+              else: "$receiver_id",
+            },
+          },
         },
+        unread: {
+          $sum: {
+            $cond: [
+              {
+                $and: [
+                  { $eq: ["$receiver_id", user_id] },
+                  { $eq: ["$unread", "0"] },
+                ],
+              },
+              1,
+              0,
+            ],
+          },
+        },
+      },
     },
     {
-        $set:{
-            ids:{ 
-                $cond: {
-                    if: {$eq: ["$_id.receiver_id",user_id]},
-                    then: "$_id.sender_id",
-                    else: "$_id.receiver_id"
-                }
-            }
-        }
-    },
-    {$lookup: {
-            from: "users",
-            let: { id: "$ids" },
-            pipeline: [{
-            $match: {
-                $expr: { $eq: ["$_id", { $toObjectId: "$$id" }] },
-            },
-            }],
-            as: "users"
-        }
+      $set: {
+        ids: {
+          $cond: {
+            if: { $eq: ["$_id.receiver_id", user_id] },
+            then: "$_id.sender_id",
+            else: "$_id.receiver_id",
+          },
+        },
+      },
     },
     {
       $lookup: {
-      from: "contacts",
-      let: { id: "$ids" },
-      pipeline: [{
-      $match: {
-          $expr: { $and: [{$eq: ["$user_id", "$$id"]},{$eq: ["$created_by", user_id]}] },
+        from: "users",
+        let: { id: "$ids" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$_id", { $toObjectId: "$$id" }] },
+            },
+          },
+        ],
+        as: "users",
       },
-      }],
-      as: "contacts"
-      }
     },
     {
-        $sort: {
-            createdAt: 1,
-        },
+      $lookup: {
+        from: "contacts",
+        let: { id: "$ids" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  { $eq: ["$user_id", "$$id"] },
+                  { $eq: ["$created_by", user_id] },
+                ],
+              },
+            },
+          },
+        ],
+        as: "contacts",
+      },
     },
-    { $project : {
-      _id:1,
-      unread:1,
-      message1:"$message.message",
-      uid:"$users._id",
-      email:"$users.email",
-      user_name:"$users.name",
-      location:"$users.location",
-      profile:"$users.profile",
-      is_profile:"$users.is_profile",
-      name:"$contacts.name",
-      favourite:"$contacts.is_favourite",
-      ids:1
-    }}
-  ])
+    {
+      $sort: {
+        createdAt: 1,
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        unread: 1,
+        message1: "$message.message",
+        uid: "$users._id",
+        email: "$users.email",
+        user_name: "$users.name",
+        location: "$users.location",
+        profile: "$users.profile",
+        is_profile: "$users.is_profile",
+        name: "$contacts.name",
+        favourite: "$contacts.is_favourite",
+        ids: 1,
+      },
+    },
+  ]);
   return messages;
 }
-
 
 /**
  * Setting
  */
 // Profile Upload
 function profileUpdate(id, profile) {
-    const message_update = User.findByIdAndUpdate(id, { profile });
-    return message_update;
+  const message_update = User.findByIdAndUpdate(id, { profile });
+  return message_update;
 }
 
 // Background Upload
 function bgUpdate(id, bg_image) {
-    const message_update = User.findByIdAndUpdate(id, { bg_image });
-    return message_update;
+  const message_update = User.findByIdAndUpdate(id, { bg_image });
+  return message_update;
 }
 
- // current user name edit
- function userNameUpdate(userId, name) {
-    const contact_name_update = User.updateOne({"_id":userId}, { name });
-    return contact_name_update;
-  }
+// current user name edit
+function userNameUpdate(userId, name) {
+  const contact_name_update = User.updateOne({ _id: userId }, { name });
+  return contact_name_update;
+}
 
-  // current user status edit
- function userStatusUpdate(userId, status) {
-  const contact_name_update = User.updateOne({"_id":userId}, { status });
+// current user status edit
+function userStatusUpdate(userId, status) {
+  const contact_name_update = User.updateOne({ _id: userId }, { status });
   return contact_name_update;
 }
 
@@ -578,19 +639,19 @@ function themeImageUpdate(id, theme_image) {
   return message_update;
 }
 
-// Lastseen security 
+// Lastseen security
 function lastseenUpdate(id, is_lastseen) {
   const message_update = User.findByIdAndUpdate(id, { is_lastseen });
   return message_update;
 }
 
-// notification security 
+// notification security
 function notificationUpdate(id, is_notification) {
   const message_update = User.findByIdAndUpdate(id, { is_notification });
   return message_update;
 }
 
-// notification muted security 
+// notification muted security
 function notificationMutedUpdate(id, is_muted) {
   const message_update = User.findByIdAndUpdate(id, { is_muted });
   return message_update;
@@ -638,7 +699,7 @@ function groupById(groupsId) {
         user_id: "$user_id",
         group_id: "$group_id",
         name: "$user.name",
-        contactName: "$contacts.name"
+        contactName: "$contacts.name",
       },
     },
   ]);
@@ -669,7 +730,12 @@ function groupContactsList(groupsId, userId) {
         pipeline: [
           {
             $match: {
-              $expr: { $and: [{$eq: ["$user_id", "$$id"]},{$eq: ["$created_by", userId]}] },
+              $expr: {
+                $and: [
+                  { $eq: ["$user_id", "$$id"] },
+                  { $eq: ["$created_by", userId] },
+                ],
+              },
             },
           },
         ],
@@ -684,7 +750,7 @@ function groupContactsList(groupsId, userId) {
         user_id: "$user_id",
         group_id: "$group_id",
         name: "$user.name",
-        contactName: "$contacts.name"
+        contactName: "$contacts.name",
       },
     },
   ]);
@@ -731,7 +797,7 @@ function groupGet(userId) {
 }
 
 // Group message Search
-function groupMessageSearchData(name,groupId) {
+function groupMessageSearchData(name, groupId) {
   const message = GroupMessage.aggregate([
     {
       $lookup: {
@@ -789,13 +855,13 @@ function groupMessageSearchData(name,groupId) {
         as: "contact",
       },
     },
-    {  
+    {
       $match: {
         $expr: { $ne: ["$flag", "2"] },
       },
     },
     { $match: { group_id: groupId } },
-    {$match: { message: new RegExp(name) } },
+    { $match: { message: new RegExp(name) } },
     { $sort: { _id: -1 } },
     { $limit: 10 },
     {
@@ -817,8 +883,8 @@ function groupMessageSearchData(name,groupId) {
         contacts_id: "$contacts_id",
         contactName: "$contacts.name",
         mcontactProfile: "$user.profile",
-        mcontact_name: '$contact.name',
-        mcontact_email: '$contact.email',
+        mcontact_name: "$contact.name",
+        mcontact_email: "$contact.email",
       },
     },
   ]);
@@ -826,7 +892,7 @@ function groupMessageSearchData(name,groupId) {
 }
 
 // Group wise sender and receiver message
-function groupMessageGet(groupId, userId, startm=0) {
+function groupMessageGet(groupId, userId, startm = 0) {
   const message = GroupMessage.aggregate([
     {
       $lookup: {
@@ -849,7 +915,12 @@ function groupMessageGet(groupId, userId, startm=0) {
         pipeline: [
           {
             $match: {
-              $expr: { $and: [{$eq: ["$user_id", "$$replay_id"]},{$eq: ["$created_by", userId]}] },
+              $expr: {
+                $and: [
+                  { $eq: ["$user_id", "$$replay_id"] },
+                  { $eq: ["$created_by", userId] },
+                ],
+              },
             },
           },
         ],
@@ -877,13 +948,18 @@ function groupMessageGet(groupId, userId, startm=0) {
         pipeline: [
           {
             $match: {
-              $expr: { $and: [{$eq: ["$user_id", "$$contacts_id"]},{$eq: ["$created_by", "$$sender_id"]}] },
+              $expr: {
+                $and: [
+                  { $eq: ["$user_id", "$$contacts_id"] },
+                  { $eq: ["$created_by", "$$sender_id"] },
+                ],
+              },
             },
           },
         ],
         as: "contact",
       },
-    }, 
+    },
     {
       $lookup: {
         from: "contacts",
@@ -891,7 +967,12 @@ function groupMessageGet(groupId, userId, startm=0) {
         pipeline: [
           {
             $match: {
-              $expr: { $and: [{$eq: ["$user_id", "$$sender_id"]},{$eq: ["$created_by", userId]}] },
+              $expr: {
+                $and: [
+                  { $eq: ["$user_id", "$$sender_id"] },
+                  { $eq: ["$created_by", userId] },
+                ],
+              },
             },
           },
         ],
@@ -914,7 +995,7 @@ function groupMessageGet(groupId, userId, startm=0) {
     },
     { $match: { group_id: groupId } },
     { $sort: { _id: -1 } },
-    {$skip: startm},
+    { $skip: startm },
     { $limit: 10 },
     {
       $project: {
@@ -938,8 +1019,8 @@ function groupMessageGet(groupId, userId, startm=0) {
         contacts_id: "$contacts_id",
         contactName: "$receiver.name",
         mcontactProfile: "$user.profile",
-        mcontact_name: '$contact.name',
-        mcontact_email: '$contact.email',
+        mcontact_name: "$contact.name",
+        mcontact_email: "$contact.email",
       },
     },
   ]);
@@ -1017,94 +1098,104 @@ function groupMsgDelete(id) {
 
 // Exit Group Member
 function groupExitMember(id, group_id) {
-  const group_delete = GroupMember.deleteOne({ user_id: id,group_id: group_id });
+  const group_delete = GroupMember.deleteOne({
+    user_id: id,
+    group_id: group_id,
+  });
   return group_delete;
 }
 
 //================ Calls Section ================//
 function callsGet(userId) {
   const calls = CallLog.aggregate([
-    { $match: {$or:[{ sender_id:userId},{receiver_id:userId}] }},
-    {$lookup: {
-            from: "users",
-            let: { id: {
-               $cond: {
-                if: { $eq: [userId,"$receiver_id"]},
-                then: "$sender_id",
-                else: "$receiver_id"
+    { $match: { $or: [{ sender_id: userId }, { receiver_id: userId }] } },
+    {
+      $lookup: {
+        from: "users",
+        let: {
+          id: {
+            $cond: {
+              if: { $eq: [userId, "$receiver_id"] },
+              then: "$sender_id",
+              else: "$receiver_id",
             },
-            } },
-            pipeline: [{
+          },
+        },
+        pipeline: [
+          {
             $match: {
-                $expr: { $eq: ["$_id", { $toObjectId: "$$id" }] },
+              $expr: { $eq: ["$_id", { $toObjectId: "$$id" }] },
             },
-            }],
-            as: "users"
-        }
+          },
+        ],
+        as: "users",
+      },
     },
-    { $project : {
-        sender_id:"$sender_id",
-        type:"$type",
-        is_type:"$is_type",
-        time:"$time",
-        createdAt:"$createdAt",
-        userName:"$users.name",
-        userProfile:"$users.profile"
-    }}
-  ])
+    {
+      $project: {
+        sender_id: "$sender_id",
+        type: "$type",
+        is_type: "$is_type",
+        time: "$time",
+        createdAt: "$createdAt",
+        userName: "$users.name",
+        userProfile: "$users.profile",
+      },
+    },
+  ]);
   return calls;
 }
 
 module.exports = {
-    current_user_data,
-    userLastSeenUpdate,
-    userPrivacyProfileUpdate,
-    userPrivacyStatusUpdate,
-    userStatusId,
-    UserEmailMatch,
-    contactEmail,
-    contactsIdGet,
-    contactsUserIdGet,
-    receiverDataGet,
-    currentContactsWithUserId,
-    contactsGet,
-    messageUpdate,
-    messageGroupUpdate,
-    messageSearchData,
-    commonGroup,
-    contactMessageGet,
-    updateUnreadMsg,
-    contactDelete,
-    contactNameUpdate,
-    allMessageDelete,
-    messageDelete,
-    directContactGet,
-    favouriteUpdate,
-    profileUpdate,
-    bgUpdate,
-    userNameUpdate,
-    userStatusUpdate,
-    themeColorUpdate,
-    themeImageUpdate,
-    lastseenUpdate,
-    notificationUpdate,
-    notificationMutedUpdate,
-    groupById,
-    groupContactsList,
-    groupData,
-    groupGet,
-    groupMessageSearchData,
-    groupMessageGet,
-    deleteGroupUser,
-    unreadGroupUser,
-    updateUnreadGroupUser,
-    updateUnreadGroupMessage,
-    groupMessageDelete,
-    allGroupMessageDelete,
-    groupNameUpdate,
-    groupDelete,
-    groupMemberDelete,
-    groupMsgDelete,
-    groupExitMember,
-    callsGet
+  current_user_data,
+  userLastSeenUpdate,
+  userPrivacyProfileUpdate,
+  userPrivacyStatusUpdate,
+  userStatusId,
+  UserEmailMatch,
+  contactEmail,
+  contactsIdGet,
+  contactsUserIdGet,
+  receiverDataGet,
+  currentContactsWithUserId,
+  contactsGet,
+  messageUpdate,
+  messageGroupUpdate,
+  messageSearchData,
+  commonGroup,
+  contactMessageGet,
+  updateUnreadMsg,
+  contactDelete,
+  contactNameUpdate,
+  allMessageDelete,
+  messageDelete,
+  directContactGet,
+  favouriteUpdate,
+  profileUpdate,
+  bgUpdate,
+  userNameUpdate,
+  userStatusUpdate,
+  themeColorUpdate,
+  themeImageUpdate,
+  lastseenUpdate,
+  notificationUpdate,
+  notificationMutedUpdate,
+  groupById,
+  groupContactsList,
+  groupData,
+  groupGet,
+  groupMessageSearchData,
+  groupMessageGet,
+  deleteGroupUser,
+  unreadGroupUser,
+  updateUnreadGroupUser,
+  updateUnreadGroupMessage,
+  groupMessageDelete,
+  allGroupMessageDelete,
+  groupNameUpdate,
+  groupDelete,
+  groupMemberDelete,
+  groupMsgDelete,
+  groupExitMember,
+  callsGet,
 };
