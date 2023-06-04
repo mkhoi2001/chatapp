@@ -2499,7 +2499,7 @@ document.querySelector("#profile-img-file-input").addEventListener("change", fun
       );
     }
 
-    var is_profile = document.getElementById("profile_id").value;
+    var is_profile = 1;
     if (file) {
       reader.readAsDataURL(file);
       let formData = new FormData();
