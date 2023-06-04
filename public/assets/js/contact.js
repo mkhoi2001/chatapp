@@ -85,7 +85,7 @@ socket.emit("currentUserInfo", userId);
 socket.on("currentInfo", ({ user }) => {
   profile = user.profile;
   var profile_img = user.profile ? user.profile : "assets/images/users/avatar-1.jpg";
-  var profile_bg_img = user.bg_image ? user.bg_image : "assets/images/users/img-1.jpg";
+  var profile_bg_img = user.bg_image ? user.bg_image : "img-1.jpg";
   themesColor = user.theme_color;
   themeImage = user.theme_image;
 
@@ -122,7 +122,7 @@ socket.on("currentInfo", ({ user }) => {
   // Current user location set
   var userLocation = document.querySelectorAll(".user_location");
   Array.from(userLocation).forEach((element, index) => {
-    element.innerHTML = user.location;
+    element.innerHTML = 'Việt Nam';
   });
 
   // current lastseen set
@@ -576,7 +576,7 @@ socket.on("contactClickEvent", ({ contacts }) => {
     document.querySelector(".user-profile-sidebar .user-name").innerHTML = contactName;
     document.querySelector(".text-truncate .user-profile-show").innerHTML = contactName;
     document.querySelector(".userEmail").innerHTML = contactEmail;
-    document.querySelector(".userLocation").innerHTML = contactLocation;
+    document.querySelector(".userLocation").innerHTML = 'Việt Nam';
     document.querySelector(".user-own-img .avatar-sm").setAttribute("src",contactImg);
     document.querySelector(".user-profile-sidebar .profile-img").setAttribute("src", contactReceiverImg);
     document.querySelector(".audiocallModal .img-thumbnail").setAttribute("src", contactImg);
