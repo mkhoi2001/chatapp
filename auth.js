@@ -5,6 +5,7 @@ const upload = require('express-fileupload');
 
 // Routes Connection
 const authRouter = require('./routes/authRoutes');
+const messageRoutes = require("./routes/messageRoutes");
 
 const app = express();
 app.use(upload());
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/', authRouter);
+app.use("/", messageRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {
