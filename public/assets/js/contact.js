@@ -126,17 +126,17 @@ socket.on("currentInfo", ({ user }) => {
   });
 
   // current lastseen set
-  user.is_lastseen == 1 ? (document.getElementById("privacy-lastseenSwitch").checked = true) : "";
+  //user.is_lastseen == 1 ? (document.getElementById("privacy-lastseenSwitch").checked = true) : "";
 
   // current privancy status set
-  document.querySelector("#select_id").value = user.is_status;
+  //document.querySelector("#select_id").value = user.is_status;
 
   // current privancy status set
-  document.querySelector("#profile_id").value = is_profile = user.is_profile;
+  //document.querySelector("#profile_id").value = is_profile = user.is_profile = 1;
 
   // Current Notification and sound muted set
-  user.is_notification == 1 ? (document.getElementById("security-notificationswitch").checked = true) : "";
-  user.is_muted == 1 ? (document.getElementById("notification_muted_switch").checked = true) : "";
+  //user.is_notification == 1 ? (document.getElementById("security-notificationswitch").checked = true) : "";
+  //user.is_muted == 1 ? (document.getElementById("notification_muted_switch").checked = true) : "";
 });
 
 /**
