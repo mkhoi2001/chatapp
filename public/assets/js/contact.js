@@ -98,7 +98,11 @@ socket.on("currentInfo", ({ user }) => {
   // Current user status set
   var userStatus = document.querySelectorAll(".user_status");
   Array.from(userStatus).forEach((element, index) => {
-    element.innerHTML = user.status;
+    if (user.status == undefined) {
+      element.innerHTML = user.status
+    } else {
+      element.innerHTML = 'Chưa cập nhật'
+    }
   });
 
   // Current user profile set
@@ -122,7 +126,7 @@ socket.on("currentInfo", ({ user }) => {
   // Current user location set
   var userLocation = document.querySelectorAll(".user_location");
   Array.from(userLocation).forEach((element, index) => {
-    element.innerHTML = user.location;
+    element.innerHTML = 'Việt Nam';
   });
 
   // current lastseen set
@@ -1942,14 +1946,18 @@ document.getElementById("userStatus").addEventListener("keydown", function (e) {
 function userStatusChange() {
   var status = document.getElementById("userStatus").value;
   if (status == "") {
-    toastr.error(`Name is Rrequires`, "Error");
+    toastr.error(`Tên là bắt buộc`, "Error");
   } else {
     document.getElementById("user_status").classList.toggle("visually-hidden");
     document.getElementById("edit-user-status").classList.toggle("visually-hidden");
     document.getElementById("user_status_edit").classList.toggle("visually-hidden");
     var userName = document.querySelectorAll(".user_status");
     Array.from(userName).forEach((element, index) => {
-      element.innerHTML = status;
+      if (status == undefined) {
+        element.innerHTML = status
+      } else {
+        element.innerHTML = 'Chưa cập nhật'
+      }
     });
     socket.emit("updateUserStatus", { userId, status });
   }
