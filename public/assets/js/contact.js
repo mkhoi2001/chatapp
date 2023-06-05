@@ -792,7 +792,7 @@ if (chatForm) {
     let audioformData = new FormData();
     audioformData.append("file", audio);
     audioformData.append("fnm", has_audio);
-
+    let is_profile = 1;
     if (groupId != null) {
       if (file != undefined) {
         socket.emit("group_msg", {
