@@ -546,15 +546,15 @@ socket.on("contactClickEvent", ({ contacts }) => {
     var contactEmail = contacts.email;
     //console.log(contacts);
     if(contacts.user_id){
-      var contactLocation = contacts.user_id.location;
-      var contactStatus = contacts.user_id.status;
-      var contactId = contacts.user_id._id;
-      var contactImg = contactProfile = contacts.user_id.profile != undefined && contacts.user_id.is_profile != 0 ? `${contacts.user_id.profile}` : dummyImage;
-      var contactReceiverImg = contacts.user_id.bg_image != undefined ? `${contacts.user_id.bg_image}` : dummyImage;
+      var contactLocation = 'Việt Nam';
+      var contactStatus = contacts.status;
+      var contactId = contacts._id;
+      var contactImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `${contacts.profile}` : dummyImage;
+      var contactReceiverImg = contacts.bg_image != undefined ? `${contacts.bg_image}` : dummyImage;
       document.querySelector(".contact_addbtn").style.display = "none";
       document.querySelector("#contact_name_edit").style.display = "block";
-      var contactSeen = contacts.user_id.is_lastseen;
-      if(contacts.user_id.is_status != 0){
+      var contactSeen = contacts.is_lastseen;
+      if(contacts.is_status != 0){
         document.querySelector(".user-profile-sidebar .users_status").innerHTML = contactStatus ? contactStatus :'';
       }
     }else{
@@ -566,6 +566,7 @@ socket.on("contactClickEvent", ({ contacts }) => {
       document.querySelector("#contact_name_edit").style.display = "none";
       document.getElementById("contact_email").value = contacts.email;
       document.getElementById("c_name").value = contacts.name;
+      document.querySelector(".users_status").innerText = contacts.status;
       document.getElementById("contact_email").disabled = true;
       var contactSeen = contacts.is_lastseen;
     }

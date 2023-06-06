@@ -368,7 +368,7 @@
   width: 120px;
 }
 .hidden {
-  display: none;
+  display: none!important;
 }
 .user-status {
   display: none;

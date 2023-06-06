@@ -51,7 +51,7 @@
                                 <i class='bx bxs-user-detail'></i>
                             </a>
                         </li>
-                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Cuộc gọi" onclick="callClickEvent(this)"> 
+                        <li class="nav-item hidden" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-container=".sidemenu-navigation" title="Cuộc gọi" onclick="callClickEvent(this)"> 
                             <a class="nav-link" id="pills-calls-tab" data-bs-toggle="pill" href="#pills-calls" role="tab" onclick="CloseChat()">
                                 <i class='bx bx-phone-call'></i>
                             </a>
@@ -847,7 +847,7 @@
                                         <div class="flex-grow-1">
                                             <p class="text-muted font-size-14 mb-1">Tên</p>
                                         </div>
-                                        <button type="button" class="btn btn-soft-primary btn-sm contact_addbtn" data-bs-toggle="modal" data-bs-target="#addContact-exampleModal">
+                                        <button type="button" class="btn btn-soft-primary btn-sm contact_addbtn" data-bs-toggle="modal" data-bs-target="#addContact-exampleModal" style="display:none">
                                             Thêm vào danh bạ
                                         </button>
                                         <div class="flex-shrink-0"> 
