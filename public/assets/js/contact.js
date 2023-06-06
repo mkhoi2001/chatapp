@@ -98,11 +98,7 @@ socket.on("currentInfo", ({ user }) => {
   // Current user status set
   var userStatus = document.querySelectorAll(".user_status");
   Array.from(userStatus).forEach((element, index) => {
-    if (user.status == undefined) {
       element.innerHTML = user.status
-    } else {
-      element.innerHTML = 'Chưa cập nhật'
-    }
   });
 
   // Current user profile set
@@ -1952,11 +1948,7 @@ function userStatusChange() {
     document.getElementById("user_status_edit").classList.toggle("visually-hidden");
     var userName = document.querySelectorAll(".user_status");
     Array.from(userName).forEach((element, index) => {
-      if (status == undefined) {
         element.innerHTML = status
-      } else {
-        element.innerHTML = 'Chưa cập nhật'
-      }
     });
     socket.emit("updateUserStatus", { userId, status });
   }
