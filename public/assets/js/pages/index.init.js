@@ -1,8 +1,8 @@
 /*
 Template Name: Chat App
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
+
+
+
 File: Index init js
 */
 

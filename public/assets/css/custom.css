@@ -370,3 +370,6 @@
 .hidden {
   display: none;
 }
+.user-status {
+  display: none;
+}

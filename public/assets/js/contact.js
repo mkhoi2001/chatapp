@@ -544,15 +544,13 @@ socket.on("contactClickEvent", ({ contacts }) => {
     var contactId = contacts._id;
     var contactName = contact__Name = contacts.name;
     var contactEmail = contacts.email;
-
+    //console.log(contacts);
     if(contacts.user_id){
-
-
       var contactLocation = contacts.user_id.location;
       var contactStatus = contacts.user_id.status;
       var contactId = contacts.user_id._id;
       var contactImg = contactProfile = contacts.user_id.profile != undefined && contacts.user_id.is_profile != 0 ? `${contacts.user_id.profile}` : dummyImage;
-      //var contactReceiverImg = contacts.user_id.bg_image != undefined ? `assets/images/small/${contacts.user_id.bg_image}` : dummyImage;
+      var contactReceiverImg = contacts.user_id.bg_image != undefined ? `${contacts.user_id.bg_image}` : dummyImage;
       document.querySelector(".contact_addbtn").style.display = "none";
       document.querySelector("#contact_name_edit").style.display = "block";
       var contactSeen = contacts.user_id.is_lastseen;
@@ -563,7 +561,7 @@ socket.on("contactClickEvent", ({ contacts }) => {
       var contactLocation = contacts.location;
       var contactId = contacts._id;
       var contactImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `${contacts.profile}` : dummyImage;
-      //var contactReceiverImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? `assets/images/small/${contacts.user_id.bg_image}` : dummyImage;
+      var contactReceiverImg = contactProfile = contacts.profile != undefined && contacts.is_profile != 0 ? contacts.bg_image : dummyImage;
       document.querySelector(".contact_addbtn").style.display = "block";
       document.querySelector("#contact_name_edit").style.display = "none";
       document.getElementById("contact_email").value = contacts.email;
@@ -579,9 +577,9 @@ socket.on("contactClickEvent", ({ contacts }) => {
     document.querySelector(".user-profile-sidebar .user-name").innerHTML = contactName;
     document.querySelector(".text-truncate .user-profile-show").innerHTML = contactName;
     document.querySelector(".userEmail").innerHTML = contactEmail;
-    document.querySelector(".userLocation").innerHTML = contactLocation;
+    document.querySelector(".userLocation").innerHTML = 'Việt Nam';
     document.querySelector(".user-own-img .avatar-sm").setAttribute("src",contactImg);
-    //document.querySelector(".user-profile-sidebar .profile-img").setAttribute("src", contactReceiverImg);
+    document.querySelector(".user-profile-sidebar .profile-img").setAttribute("src", contactReceiverImg);
     document.querySelector(".audiocallModal .img-thumbnail").setAttribute("src", contactImg);
     document.querySelector(".videocallModal .videocallModal-bg").setAttribute("src", contactImg);
     setTimeout(() => {
