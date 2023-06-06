@@ -9,10 +9,12 @@ router.post("/forgotPassword", authController.forgotPassword);
 router.patch("/resetPassword/:token", authController.resetPassword);
 router.post("/forgotPassword", authController.forgotPassword);
 /* Chính */
-router.post("/getProfileById", authController.getProfileById);
+router.get("/getProfileById/:id", authController.getProfileById);
 router.post("/updateNameById", authController.updateNameById);
 router.post("/updateStatusById", authController.updateStatusById);
 router.get("/getlistUser", authController.getlistUser);
+router.post("/updateBackgroundById", authController.updateBackgroundById);
+router.post("/updateAvatarById", authController.updateAvatarById);
 
 // view Routes
 router.get("/register", authController.register);

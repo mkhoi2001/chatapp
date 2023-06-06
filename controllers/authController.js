@@ -81,7 +81,7 @@ exports.getlistUser = catchAsync(async (req, res) => {
 });
 
 exports.getProfileById = catchAsync(async (req, res) => {
-  const { id } = req.body;
+  const id = req.params.id;
 
   try {
     const user = await User.findById(id).select(
@@ -167,6 +167,69 @@ exports.updateStatusById = async (req, res) => {
     return res.status(500).json({
       status: "fail",
       message: "Lỗi khi cập nhật cập nhật trạng thái",
+    });
+  }
+};
+
+exports.updateBackgroundById = async (req, res) => {
+  const { id, background_url } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(
+      id,
+      { bg_image: background_url },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Người dùng không tồn tại",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Cập nhật ảnh bìa thành công",
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    console.log("Lỗi khi cập nhật ảnh bìa:", error);
+    return res.status(500).json({
+      status: "fail",
+      message: "Lỗi khi cập nhật ảnh bìa",
+    });
+  }
+};
+exports.updateAvatarById = async (req, res) => {
+  const { id, avatar_url } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(
+      id,
+      { profile: avatar_url },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Người dùng không tồn tại",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Cập nhật ảnh đại diện thành công",
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    console.log("Lỗi khi cập nhật ảnh đại diện:", error);
+    return res.status(500).json({
+      status: "fail",
+      message: "Lỗi khi cập nhật ảnh đại diện",
     });
   }
 };

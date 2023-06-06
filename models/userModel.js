@@ -67,8 +67,15 @@ const userSchema = new mongoose.Schema({
         type:String,
         default: 1
     },
-    profile: String,
-    bg_image: String,
+    profile: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dvcsktxvh/image/upload/v1685994805/images/default/default_avatar_eczzly.jpg",
+    },
+    bg_image: {
+        type: String,
+        default:"https://res.cloudinary.com/dvcsktxvh/image/upload/v1685994847/images/default/default_background_jbmdvr.jpg"
+    },
     passwordChangedAt: Date,
     passwordResetToken:String,
     passwordResetExpires:Date

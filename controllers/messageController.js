@@ -123,3 +123,33 @@ exports.getAllConversations = catchAsync(async (req, res) =>{
 })
   }
 })
+
+exports.deleteMessages = catchAsync(async (req, res) => {
+  const { sender_id, receiver_id } = req.params;
+  try {
+    const deletedMessages = await Msg.deleteMany({
+      $or: [
+        { sender_id: sender_id, receiver_id: receiver_id },
+        { sender_id: receiver_id, receiver_id: sender_id },
+      ],
+    });
+
+    if (deletedMessages.deletedCount === 0) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Không tìm thấy tin nhắn để xóa",
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      message: "Xóa tin nhắn thành công",
+      deletedCount: deletedMessages.deletedCount,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Lỗi khi xóa tin nhắn",
+    });
+  }
+});
